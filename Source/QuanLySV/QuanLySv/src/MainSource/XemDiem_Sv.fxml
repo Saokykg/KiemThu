@@ -7,7 +7,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane prefHeight="486.0" prefWidth="645.0" styleClass="root" stylesheets="@StyleSheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="log.FXMLDocumentController">
+<StackPane prefHeight="486.0" prefWidth="645.0" styleClass="root" stylesheets="@StyleSheet.css" 
+           xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainSource.XemDiem_Sv">
+                                                                                        
    <children>
       <HBox prefHeight="486.0" prefWidth="617.0" />
       <VBox prefHeight="388.0" prefWidth="344.0">
