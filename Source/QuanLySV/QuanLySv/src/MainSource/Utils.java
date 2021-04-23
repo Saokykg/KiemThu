@@ -22,7 +22,7 @@ public class Utils {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
                 conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/quanlysinhvien",
-                        "root", "123456");
+                        "root", "A!23456a");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
         }catch (SQLException ex) {

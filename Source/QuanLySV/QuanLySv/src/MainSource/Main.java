@@ -20,8 +20,9 @@ public class Main extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("XemDiem_Sv.fxml"));
-        
+        Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+        System.out.println("java version: "+System.getProperty("java.version"));
+       
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
