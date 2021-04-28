@@ -5,12 +5,16 @@
  */
 package quanly.Class;
 
+import MainSource.Utils;
+import java.text.ParseException;
+
 /**
  *
  * @author jacky
  */
 public class tbLopHoc {
-
+    
+    private int id;
     private String mon;
     private String bd;
     private String kt;
@@ -19,6 +23,20 @@ public class tbLopHoc {
     /**
      * @return the mon
      */
+    public tbLopHoc(int id, String mon, String bd, String kt, int ca) throws ParseException{
+        this.id = id;
+        this.mon= mon;
+        this.bd = bd;
+        this.kt = kt;
+        this.ca = ca;
+        this.thu = Utils.getthu(Utils.todatetime(bd));
+    }
+
+    @Override
+    public String toString() {
+        return this.mon; //To change body of generated methods, choose Tools | Templates.
+    }
+    
     public String getMon() {
         return mon;
     }
@@ -84,6 +102,20 @@ public class tbLopHoc {
      */
     public void setCa(int ca) {
         this.ca = ca;
+    }
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
     }
 
     

@@ -11,11 +11,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import quanly.Class.Hocki;
 import quanly.Class.Monhoc;
 import quanly.Class.Sinhvien;
+import quanly.Class.tbDiem;
+import quanly.Class.tbLopHoc;
 
 /**
  *
@@ -24,6 +30,16 @@ import quanly.Class.Sinhvien;
 public class Utils {
     
     
+    public static Date todatetime(String date) throws ParseException{
+        SimpleDateFormat format1=new SimpleDateFormat("dd/MM/yyyy");
+        Date dt1=format1.parse(date);
+        return dt1;
+    }
+    public static String getthu(Date date){
+       DateFormat format2=new SimpleDateFormat("EEEE"); 
+        String finalDay=format2.format(date);
+        return finalDay.toString();
+    }
     public static List<Sinhvien> getSinhVien(String key) throws SQLException{
         String sql = "Select * from SinhVien";
         if (!key.isEmpty())
@@ -125,7 +141,7 @@ public class Utils {
     
     public static List<Hocki> getHK() throws SQLException{
         String sql = "SELECT * FROM hocki " +
-                    "order by 3 desc, 2 asc";
+                    "order by 3 asc, 2 asc";
         Connection conn = jdbcUtils.getConn();
         Statement stm = conn.createStatement();
         ResultSet rs = stm.executeQuery(sql);
@@ -137,21 +153,36 @@ public class Utils {
         return hk;
     }
 
-    static List<Monhoc> getMH(int idhk) throws SQLException {
-        String sql = "select m.* " +
+    public static List<tbLopHoc> getLH(int idhk) throws SQLException, ParseException {
+        String sql = "select id_lop_hoc, ten_mon_hoc, ngay_bd, ngay_bd, hoc_ki " +
                     "from monhoc m, lophoc l " +
                     "where m.id_mon_hoc = l.id_mon_hoc and l.hoc_ki = " + idhk;
         Connection conn = jdbcUtils.getConn();
         Statement stm = conn.createStatement();
         ResultSet rs = stm.executeQuery(sql);
-        System.out.println(sql.toString());
-        List<Monhoc> mh = new ArrayList<>();
+        List<tbLopHoc> mh = new ArrayList<>();
         while (rs.next()){
-            Monhoc m = new Monhoc(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getFloat(4), rs.getInt(5));
+            tbLopHoc m = new tbLopHoc(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5));
             mh.add(m);
         }
         return mh;
     }
     
-    
+    public static List<tbDiem> getDiem(int id) throws SQLException{
+        String sql = "select mssv,CONCAT_WS(\" \", `ho`, `ten`), ten_mon_hoc , diem_giua_ki, diem_cuoi_ki, phan_tram " +
+                    "from sinhvien sv, diem d, monhoc m, lophoc l " +
+                    "where sv.id_sinh_vien = d.id_sinh_vien and m.id_mon_hoc = l.id_mon_hoc and " +
+                    "l.id_lop_hoc = d.id_lop_hoc and d.id_lop_hoc = ? ";
+        Connection conn = jdbcUtils.getConn();
+        PreparedStatement stm = conn.prepareStatement(sql);
+        stm.setInt(1, id);
+        ResultSet rs = stm.executeQuery();
+        List<tbDiem> lophoc = new ArrayList<>();
+        while(rs.next()){
+            tbDiem lop = new tbDiem(rs.getString(1), rs.getString(2), rs.getString(3), String.valueOf(rs.getFloat(4)), 
+                                String.valueOf(rs.getFloat(5)), String.valueOf(rs.getFloat(6)));
+            lophoc.add(lop);
+        }
+        return lophoc;
+    }
 }

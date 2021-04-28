@@ -81,9 +81,7 @@ public class QuanLySVController implements Initializable {
         
         try {
             loadSinhVien();
-            System.out.println("================= loadQuestion ================");
             addButtonXoaToTable();
-            System.out.println("================= addButtonToTable ================");
         } catch (SQLException ex) {
             Logger.getLogger(QuanLySVController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -109,7 +107,6 @@ public class QuanLySVController implements Initializable {
     }    
     
     public void timkiem() throws SQLException{
-        System.out.println("================= timkiem ================");
         tbSinhVien.getItems().clear();
         loadSinhVien();
     }
@@ -172,7 +169,6 @@ public class QuanLySVController implements Initializable {
         sv.setNgaysinh(txtNgaySinh.getText());
         sv.setQuequan(txtQueQuan.getText());
         
-        System.out.println("================== capnhat ================");
         Utils.updateSV(sv);
         this.tbSinhVien.getItems().clear();
         loadSinhVien();
@@ -190,7 +186,6 @@ public class QuanLySVController implements Initializable {
             alert.show();
         }
         else{
-            System.out.println("=============== them =================");
             Utils.themSV(a,b,c,d,e);
         }
         loadSinhVien();

@@ -9,7 +9,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="543.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainSource.TraCuuDiemController">
    <children>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tra cứu điểm" textAlignment="CENTER" wrappingWidth="600.13671875">
@@ -30,7 +29,7 @@
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Học kì" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Môn học" GridPane.rowIndex="1" />
             <ComboBox fx:id="cbHocKi" onAction="#hkchose" prefHeight="25.0" prefWidth="400.0" GridPane.columnIndex="1" />
-            <ComboBox fx:id="cbMonHoc" prefHeight="25.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ComboBox fx:id="cbLopHoc" onAction="#lhchose" prefHeight="25.0" prefWidth="400.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lớp" textAlignment="CENTER" wrappingWidth="599.869140625">

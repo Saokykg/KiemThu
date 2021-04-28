@@ -13,13 +13,22 @@ public class tbDiem {
 
     private String mssv;
     private String ten;
-    private String Mon;
+    private String mon;
     private String diem_gk;
     private String diem_ck;
     private String tile;
     /**
      * @return the mssv
      */
+    public tbDiem(String mssv, String ten, String mon, String gk, String ck, String tile){
+        this.mssv = mssv;
+        this.ten = ten;
+        this.mon = mon;
+        this.diem_ck = ck;
+        this.diem_gk = gk;
+        this.tile = tile;
+    }
+    
     public String getMssv() {
         return mssv;
     }
@@ -49,14 +58,14 @@ public class tbDiem {
      * @return the Mon
      */
     public String getMon() {
-        return Mon;
+        return mon;
     }
 
     /**
      * @param Mon the Mon to set
      */
     public void setMon(String Mon) {
-        this.Mon = Mon;
+        this.mon = Mon;
     }
 
     /**
