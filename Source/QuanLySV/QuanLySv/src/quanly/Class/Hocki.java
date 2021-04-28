@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Class;
+package quanly.Class;
 
 /**
  *
@@ -19,7 +19,11 @@ public class Hocki {
         this.hoc_ki = hk;
         this.nam = nam;
     }
-
+    
+    @Override
+    public String toString() {
+        return "Học kì " + String.valueOf(hoc_ki) + ", năm học " +String.valueOf(nam);
+    }
     /**
      * @return the id
      */

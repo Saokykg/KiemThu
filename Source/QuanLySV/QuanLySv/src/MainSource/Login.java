@@ -1,6 +1,7 @@
 package MainSource;
 
 import MainSource.ConnectionUtil;
+import MainSource.ConnectionUtil;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import java.net.URL;
@@ -68,12 +69,18 @@ public class Login implements Initializable {
             preparedStatement.setString(2, password);
             resultSet = preparedStatement.executeQuery();
             if(!resultSet.next()){
-                infoBox("Please enter correct Email and Password", null, "Failed");
+                infoBox("Please enter  correct Email and Password", null, "Failed");
             }else{
                 Node node = (Node)event.getSource();
                 dialogStage = (Stage) node.getScene().getWindow();
                 dialogStage.close();
-                scene = new Scene(FXMLLoader.load(getClass().getResource("XemDiem_Sv.fxml")));
+                String tmp = (resultSet.getString("loai_tai_khoan"));
+//                scene = new Scene(FXMLLoader.load(getClass().getResource("XemDiem_Sv.fxml")));
+                if (tmp == "ADMIN")
+                    scene = new Scene(FXMLLoader.load(getClass().getResource("Menu.fxml")));
+                else
+                    scene = new Scene(FXMLLoader.load(getClass().getResource("Menu.fxml")));
+                //dialogStage.setTitle(resultSet.getString("tai_khoan"));
                 dialogStage.setScene(scene);
                 dialogStage.show();
             }

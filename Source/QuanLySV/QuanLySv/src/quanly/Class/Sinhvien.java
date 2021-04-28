@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Class;
+package quanly.Class;
 
 /**
  *
@@ -30,6 +30,10 @@ public class Sinhvien {
         this.id_acc = idacc;
     }
     
+    @Override
+    public String toString() {
+        return ho + " " + ten;
+    }
     
     /**
      * @return the id

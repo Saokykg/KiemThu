@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Class;
+package quanly.Class;
 
 /**
  *
@@ -24,6 +24,13 @@ public class Monhoc {
         this.soluong = sl;
     }
 
+    @Override
+    public String toString() {
+        return this.ten; //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
+    
     /**
      * @return the id
      */

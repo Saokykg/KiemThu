@@ -5,7 +5,7 @@
  */
 package MainSource;
 
-import MainSource.Utils;
+import MainSource.jdbcUtils;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,18 +20,17 @@ public class Main extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
-        System.out.println("java version: "+System.getProperty("java.version"));
+        Parent root = FXMLLoader.load(getClass().getResource("TraCuuDiem.fxml"));
        
         Scene scene = new Scene(root);
-        
+        stage.setTitle("Login");
         stage.setScene(scene);
         stage.show();
     }
     
     @Override
     public void stop() throws Exception {
-        Utils.getConn().close();
+        jdbcUtils.getConn().close();
         super.stop(); //To change body of generated methods, choose Tools | Templates.\
     }
     

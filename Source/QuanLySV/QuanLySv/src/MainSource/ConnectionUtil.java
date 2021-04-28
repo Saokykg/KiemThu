@@ -19,7 +19,7 @@ public class ConnectionUtil {
         {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/quanlysinhvien",
-                        "root", "A!23456a");
+                        "root", "123456");
             return conn;
         }
         catch(Exception e)
