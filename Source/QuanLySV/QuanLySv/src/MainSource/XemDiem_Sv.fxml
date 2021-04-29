@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane prefHeight="486.0" prefWidth="645.0" styleClass="root" stylesheets="@StyleSheet.css" 
-           xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainSource.XemDiem_Sv">
+<StackPane prefHeight="486.0" prefWidth="645.0" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainSource.XemDiem_Sv">
                                                                                         
    <children>
       <HBox prefHeight="486.0" prefWidth="617.0" />
@@ -16,7 +15,7 @@
          <children>
             <VBox prefHeight="155.0" prefWidth="645.0">
                <children>
-                  <Label alignment="CENTER" prefHeight="42.0" prefWidth="646.0" text="Điểm thi">
+                  <Label alignment="CENTER" prefHeight="42.0" prefWidth="646.0" styleClass="Subject" text="Điểm thi">
                      <font>
                         <Font size="36.0" />
                      </font>
@@ -25,18 +24,18 @@
                      <children>
                         <VBox prefHeight="142.0" prefWidth="162.0">
                            <children>
-                              <Label prefHeight="31.0" prefWidth="98.0" text="MSSV:" />
-                              <Label prefHeight="31.0" prefWidth="98.0" text="Họ Và Tên:" />
-                              <Label prefHeight="31.0" prefWidth="98.0" text="Giới Tính:" textOverrun="CLIP" />
+                              <Label prefHeight="26.0" prefWidth="166.0" text="MSSV:" />
+                              <Label prefHeight="28.0" prefWidth="167.0" text="Họ Và Tên:" />
+                              <Label prefHeight="29.0" prefWidth="165.0" text="Giới Tính:" textOverrun="CLIP" />
                            </children>
                         </VBox>
                         <VBox prefHeight="191.0" prefWidth="468.0">
                            <children>
-                              <Label prefHeight="31.0" prefWidth="205.0" text="Label" />
-                              <Label prefHeight="31.0" prefWidth="195.0" text="Label" />
-                              <HBox prefHeight="31.0" prefWidth="272.0">
+                              <Label prefHeight="22.0" prefWidth="492.0" text="Label" />
+                              <Label prefHeight="29.0" prefWidth="481.0" text="Label" />
+                              <HBox prefHeight="29.0" prefWidth="496.0">
                                  <children>
-                                    <Label prefHeight="31.0" prefWidth="98.0" text="Giới Tính:" textOverrun="CLIP" />
+                                    <Label prefHeight="28.0" prefWidth="492.0" text="Giới Tính:" textOverrun="CLIP" />
                                  </children>
                               </HBox>
                            </children>
