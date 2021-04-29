@@ -19,7 +19,7 @@ import javafx.stage.Stage;
  *
  * @author jacky
  */
-public class Menu implements Initializable {
+public class MenuAdmin implements Initializable {
     
     
     Stage stage = new Stage();

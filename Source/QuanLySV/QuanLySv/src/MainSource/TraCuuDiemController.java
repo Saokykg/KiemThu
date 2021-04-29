@@ -102,7 +102,6 @@ public class TraCuuDiemController implements Initializable {
             Logger.getLogger(TraCuuDiemController.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.tbLop.setRowFactory(et ->{
-            System.out.println("lay diem");
             TableRow row = new TableRow();
             row.setOnMouseClicked(r ->{
                 tbLopHoc lop = this.tbLop.getSelectionModel().getSelectedItem();
