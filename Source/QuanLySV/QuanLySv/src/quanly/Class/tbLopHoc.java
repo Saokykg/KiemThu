@@ -20,6 +20,8 @@ public class tbLopHoc {
     private String kt;
     private String thu;
     private int ca;
+    private int tinchi;
+    private float hocphi;
     /**
      * @return the mon
      */
@@ -30,6 +32,12 @@ public class tbLopHoc {
         this.kt = kt;
         this.ca = ca;
         this.thu = Utils.getthu(Utils.todatetime(bd));
+    }
+    public tbLopHoc(int id, String mon, int tc, float hocphi) throws ParseException{
+        this.id = id;
+        this.mon= mon;
+        this.tinchi = tc;
+        this.hocphi = hocphi;
     }
 
     @Override
@@ -116,6 +124,34 @@ public class tbLopHoc {
      */
     public void setId(int id) {
         this.id = id;
+    }
+
+    /**
+     * @return the tinchi
+     */
+    public int getTinchi() {
+        return tinchi;
+    }
+
+    /**
+     * @param tinchi the tinchi to set
+     */
+    public void setTinchi(int tinchi) {
+        this.tinchi = tinchi;
+    }
+
+    /**
+     * @return the hocphi
+     */
+    public float getHocphi() {
+        return hocphi;
+    }
+
+    /**
+     * @param hocphi the hocphi to set
+     */
+    public void setHocphi(float hocphi) {
+        this.hocphi = hocphi;
     }
 
     

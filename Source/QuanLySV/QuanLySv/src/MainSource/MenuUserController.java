@@ -39,7 +39,7 @@ public class MenuUserController implements Initializable {
         stage.show();
     }
     public void toInPhieu(ActionEvent event) throws IOException{
-        doiTrang((Node)event.getSource(), "InPhieu.fxml");
+        doiTrang((Node)event.getSource(), "BaoCaoHocPhi.fxml");
     }
     public void toThongTin(ActionEvent event) throws IOException{
         doiTrang((Node)event.getSource(), "ThongtinSinhVien.fxml");

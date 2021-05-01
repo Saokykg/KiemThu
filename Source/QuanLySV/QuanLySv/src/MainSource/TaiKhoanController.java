@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import quanly.Class.Account;
@@ -32,11 +33,11 @@ public class TaiKhoanController implements Initializable {
     @FXML
     private Text txtPermission;    
     @FXML
-    private TextField txtOldPas;    
+    private PasswordField txtOldPas;    
     @FXML
-    private TextField txtNewPas;    
+    private PasswordField txtNewPas;    
     @FXML
-    private TextField txtConfirm;
+    private PasswordField txtConfirm;
     @FXML
     private Button btnConfirm;
     /**

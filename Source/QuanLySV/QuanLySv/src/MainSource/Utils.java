@@ -173,7 +173,24 @@ public class Utils {
         }
         return mh;
     }
-    
+    public static List<tbLopHoc> getLH(int idhk, int idacc) throws SQLException, ParseException {
+        String sql = "select l.id_lop_hoc, ten_mon_hoc, so_tin_chi, hoc_phi " +
+                        "from monhoc m, lophoc l, diem d " +
+                        "where m.id_mon_hoc = l.id_mon_hoc  and l.id_lop_hoc = d.id_lop_hoc "+
+                        "and l.hoc_ki = ? and d.id_sinh_vien = ? ";
+        Sinhvien sv = getSinhVienByAcc(idacc);
+        Connection conn = jdbcUtils.getConn();
+        PreparedStatement stm = conn.prepareStatement(sql);
+        stm.setInt(1, idhk);
+        stm.setInt(2, sv.getId());
+        ResultSet rs = stm.executeQuery();
+        List<tbLopHoc> mh = new ArrayList<>();
+        while (rs.next()){
+            tbLopHoc m = new tbLopHoc(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getFloat(4));
+            mh.add(m);
+        }
+        return mh;
+    }
     public static List<tbLopHoc> getLH(String name, int idhk) throws SQLException, ParseException {
         String sql = "select id_lop_hoc, ten_mon_hoc, ngay_bd, ngay_bd, hoc_ki " +
                     "from monhoc m, lophoc l " +
@@ -226,6 +243,20 @@ public class Utils {
                     rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getInt(7));
         return sv;
     }
+    
+    public static Sinhvien getSinhVienByAcc(int id) throws SQLException{
+        
+        String sql = "select * from sinhvien where id_account = ?";
+        Connection conn = jdbcUtils.getConn();
+        PreparedStatement stm = conn.prepareStatement(sql);
+        stm.setInt(1, id);
+        ResultSet rs = stm.executeQuery();
+        rs.next();
+        Sinhvien sv = new Sinhvien(rs.getInt(1),rs.getString(2),
+                    rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getInt(7));
+        return sv;
+    }
+    
     public static List<tbHocBong> getHocBong(int id) throws SQLException{
         String sql = "select ten_hoc_bong , ten_chi_tiet, hk.hoc_ki, nam, tien_thuong " +
                     "from hocki hk, sinhvien_nhan_hocbong s, chi_tiet_hoc_bong c, hoc_bong hb " +
@@ -288,6 +319,21 @@ public class Utils {
         return id + 1;
     }
     
+    public static int getIdhk(int m, int y) throws SQLException{
+        String sql = "select id_hoc_ki from hocki where hoc_ki = ? and nam = ?";
+        Connection conn = jdbcUtils.getConn();
+        PreparedStatement stm = conn.prepareStatement(sql);
+        stm.setInt(1, m);
+        stm.setInt(2, y);
+        ResultSet rs = stm.executeQuery();
+        int id;
+        if (!rs.next())
+            return -1;
+        else
+            id = rs.getInt(1);
+        return id;
+    }
+    
     public static void dangky(List<tbLopHoc> lopdk, int idsv) throws SQLException{
         String sql= "insert into diem(id_lop_hoc, id_sinh_vien) values(?,?)";
         Connection conn = jdbcUtils.getConn();
@@ -316,5 +362,17 @@ public class Utils {
         stm.setString(1, pass);
         stm.setInt(2, id);
         stm.executeUpdate();
+    }
+
+    public static List<Integer> countNam() throws SQLException {
+        String sql ="select nam from hocki group by nam";
+        Connection conn = jdbcUtils.getConn();
+        Statement stm = conn.createStatement();
+        ResultSet rs = stm.executeQuery(sql);
+        List<Integer> l = new ArrayList<>();
+        while (rs.next()){
+            l.add(rs.getInt(1));
+        }
+        return l;
     }
 }
