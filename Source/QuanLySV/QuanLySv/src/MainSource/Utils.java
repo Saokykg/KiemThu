@@ -27,6 +27,7 @@ import quanly.Class.Sinhvien;
 import quanly.Class.tbDiem;
 import quanly.Class.tbHocBong;
 import quanly.Class.tbLopHoc;
+import quanly.Class.tbbchocphi;
 import quanly.Class.twoInt;
 
 /**
@@ -319,6 +320,7 @@ public class Utils {
         return id + 1;
     }
     
+    
     public static int getIdhk(int m, int y) throws SQLException{
         String sql = "select id_hoc_ki from hocki where hoc_ki = ? and nam = ?";
         Connection conn = jdbcUtils.getConn();
@@ -375,4 +377,59 @@ public class Utils {
         }
         return l;
     }
+    public static List<Integer> countHk(int nam) throws SQLException {
+        String sql ="select hoc_ki from hocki where nam = "+ nam;
+        Connection conn = jdbcUtils.getConn();
+        Statement stm = conn.createStatement();
+        ResultSet rs = stm.executeQuery(sql);
+        List<Integer> l = new ArrayList<>();
+        while (rs.next()){
+            l.add(rs.getInt(1));
+        }
+        return l;
+    }
+    //BAO CAO ADMIN
+    public static int getHK(int n, int k) throws SQLException{
+        String sql ="select id_hoc_ki from hocki where nam = ? and hoc_ki = ? ";
+        Connection conn = jdbcUtils.getConn();
+        PreparedStatement stm = conn.prepareStatement(sql);
+        stm.setInt(1, n);
+        if (k!=0)
+            stm.setInt(2, k);
+        else
+            stm.setInt(2, 1);
+        ResultSet rs = stm.executeQuery();
+        if (rs.next())
+            return rs.getInt(1);
+        else
+            return -1;
+    }
+    public static List<tbbchocphi> getbaocaohocphi(int n,int k) throws SQLException{
+        String sql = "select l.id_lop_hoc, ten_mon_hoc, count(*), sum(hoc_phi) " +
+                    "from diem d, lophoc l, monhoc m " +
+                    "where m.id_mon_hoc = l.id_mon_hoc and d.id_lop_hoc = l.id_lop_hoc " +
+                    "and l.hoc_ki = ? " +
+                    "group by l.id_lop_hoc";
+        int hk = getHK(n,k);
+        if (k==0)
+            sql += " Union " + sql +" union "+ sql;
+        else
+            if (k==-1)
+                return new ArrayList<tbbchocphi>();
+        Connection conn = jdbcUtils.getConn();
+        PreparedStatement stm = conn.prepareStatement(sql);
+        stm.setInt(1, hk);
+        if (k == 0){
+            stm.setInt(2, hk+1);
+            stm.setInt(3, hk+2);
+        }
+        ResultSet rs = stm.executeQuery();
+        List<tbbchocphi> tb = new ArrayList<>();
+        while(rs.next()){
+            tbbchocphi hp = new tbbchocphi(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getFloat(4));
+            tb.add(hp);
+        }
+        return tb;
+    }
+    
 }
