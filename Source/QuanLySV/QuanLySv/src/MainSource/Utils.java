@@ -28,6 +28,7 @@ import quanly.Class.tbDiem;
 import quanly.Class.tbHocBong;
 import quanly.Class.tbLopHoc;
 import quanly.Class.tbbchocphi;
+import quanly.Class.tbxeploai;
 import quanly.Class.twoInt;
 
 /**
@@ -431,5 +432,39 @@ public class Utils {
         }
         return tb;
     }
-    
+
+    public static List<tbxeploai> getbaocaoxeploai(int n,int k) throws SQLException{
+        String sql = "select mssv, ho, ten, avg(diem_giua_ki*phantram + diem_cuoi_ki*(1-phantram)) " +
+                    "from sinhvien s, diem d, monhoc m, lophoc l " +
+                    "where s.id_sinh_vien = d.id_sinh_vien and m.id_mon_hoc = l.id_mon_hoc " +
+                    "and l.id_lop_hoc = d.id_lop_hoc and l.hoc_ki = ? " +
+                    "group by s.id_sinh_vien";
+        int hk = getHK(n,k);
+        if (k==0)
+            sql += " Union " + sql +" union "+ sql;
+        else
+            if (k==-1)
+                return new ArrayList<tbxeploai>();
+        Connection conn = jdbcUtils.getConn();
+        PreparedStatement stm = conn.prepareStatement(sql);
+        stm.setInt(1, hk);
+        if (k == 0){
+            stm.setInt(2, hk+1);
+            stm.setInt(3, hk+2);
+        }
+        ResultSet rs = stm.executeQuery();
+        List<tbxeploai> tb = new ArrayList<>();
+        while(rs.next()){
+            float d = rs.getFloat(4);
+            String xeploai;
+            if (d<4)
+                xeploai = "Yếu";
+            else if (d<5) xeploai = "Trung bình";
+            else if (d<8) xeploai = "Khá";
+            else xeploai = "Giỏi";
+            tbxeploai xl = new tbxeploai(rs.getInt(1), rs.getString(2)+" "+ rs.getString(3), String.format("%.2f", d), xeploai);
+            tb.add(xl);
+        }
+        return tb;
+    }
 }

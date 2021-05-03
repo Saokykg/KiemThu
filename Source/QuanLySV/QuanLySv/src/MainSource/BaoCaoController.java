@@ -22,6 +22,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import quanly.Class.tbLopHoc;
 import quanly.Class.tbbchocphi;
+import quanly.Class.tbxeploai;
 
 /**
  * FXML Controller class
@@ -53,7 +54,7 @@ public class BaoCaoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        this.cbhk.setDisable(true);
+        reset();
         try {
             this.cbnam.getItems().addAll(Utils.countNam());
         } catch (SQLException ex) {
@@ -67,6 +68,9 @@ public class BaoCaoController implements Initializable {
             this.cbhk.getItems().clear();
             this.cbhk.getItems().addAll(Utils.countHk((int)this.cbnam.getValue()));
         }
+        this.btnHocBong.setDisable(false);
+        this.btnHocPhi.setDisable(false);
+        this.btnXepLoai.setDisable(false);
     }
     
     public void reset(){
@@ -74,6 +78,9 @@ public class BaoCaoController implements Initializable {
             this.cbhk.getSelectionModel().clearSelection();
         if (!this.cbnam.getSelectionModel().isEmpty())
             this.cbnam.getSelectionModel().clearSelection();
+        this.btnHocBong.setDisable(true);
+        this.btnHocPhi.setDisable(true);
+        this.btnXepLoai.setDisable(true);
         this.cbhk.setDisable(true);
         this.tbmain.getItems().clear();
         this.tbmain.getColumns().clear();
@@ -112,8 +119,29 @@ public class BaoCaoController implements Initializable {
         this.tbmain.setItems(FXCollections.observableArrayList(Utils.getbaocaohocphi(nam, hk)));
         
     }
-    public void baocaoxeploai(){
+    public void baocaoxeploai() throws SQLException{
+        
+        resettable();
+        
+        TableColumn<tbxeploai, String> mssvCol = new TableColumn<>("MSSV");
+        mssvCol.setCellValueFactory(new PropertyValueFactory<>("mssv"));
+        
+        TableColumn<tbxeploai, String> tenSvCol = new TableColumn<>("Tên");
+        tenSvCol.setCellValueFactory(new PropertyValueFactory<>("ten"));
+        
+        TableColumn<tbxeploai, String> diemTBCol = new TableColumn<>("Điểm trung bình");
+        diemTBCol.setCellValueFactory(new PropertyValueFactory<>("diem"));
+        
+        TableColumn<tbxeploai, String> xepLoaiCol = new TableColumn<>("Xếp loại");
+        xepLoaiCol.setCellValueFactory(new PropertyValueFactory<>("xeploai"));
+        
+        this.tbmain.getColumns().addAll(mssvCol, tenSvCol, diemTBCol, xepLoaiCol);
+        
+        int nam = (int)this.cbnam.getValue();
+        int hk=0;
+        if (!this.cbhk.getSelectionModel().isEmpty())
+            hk = (int)this.cbhk.getValue();
+        this.tbmain.setItems(FXCollections.observableArrayList(Utils.getbaocaoxeploai(nam, hk)));
         
     }
-    
 }
