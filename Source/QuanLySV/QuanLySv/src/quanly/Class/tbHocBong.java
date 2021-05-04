@@ -10,7 +10,9 @@ package quanly.Class;
  * @author jacky
  */
 public class tbHocBong {
+    private int stt;
     private String ten;
+    private String mucdo;
     private String hocki;
     private float tien;
 
@@ -18,6 +20,12 @@ public class tbHocBong {
     public tbHocBong(String ten, String hk, float tien){
         this.ten = ten;
         this.hocki = hk;
+        this.tien = tien;
+    }
+    public tbHocBong(int stt, String ten, String mucdo, float tien){
+        this.stt = stt;
+        this.ten = ten;
+        this.mucdo = mucdo;
         this.tien = tien;
     }
     @Override

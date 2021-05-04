@@ -5,21 +5,31 @@
  */
 package MainSource;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import quanly.Class.tbHocBong;
 import quanly.Class.tbLopHoc;
 import quanly.Class.tbbchocphi;
 import quanly.Class.tbxeploai;
@@ -44,8 +54,7 @@ public class BaoCaoController implements Initializable {
     @FXML
     private GridPane gpMain;
     @FXML
-    private TableView tbmain;
-    
+    public TableView tbmain;
     
     
     /**
@@ -91,8 +100,70 @@ public class BaoCaoController implements Initializable {
         this.tbmain.getItems().clear();
     }
     
-    public void baocaohocbong(){
+    public void baocaohocbong() throws IOException{
         
+        resettable();
+        
+        TableColumn<tbHocBong, String> sttCol = new TableColumn<>("STT");
+        sttCol.setCellValueFactory(new PropertyValueFactory<>("stt"));
+        
+        TableColumn<tbHocBong, String> tenCol = new TableColumn<>("Tên SV");
+        tenCol.setCellValueFactory(new PropertyValueFactory<>("ten"));
+        
+        TableColumn<tbHocBong, String> loaiCol = new TableColumn<>("Loại");
+        loaiCol.setCellValueFactory(new PropertyValueFactory<>("mucdo"));
+        
+        TableColumn<tbHocBong, String> thuongCol = new TableColumn<>("Thưởng");
+        thuongCol.setCellValueFactory(new PropertyValueFactory<>("tien"));
+        
+        this.tbmain.getColumns().addAll(sttCol, tenCol, loaiCol, thuongCol);
+        
+        List<Integer> a = new ArrayList<>();
+        for (int i=1;i<=50;i++)
+            a.add(i);
+        
+        CheckBox check1 = new CheckBox("Xuất sắc");
+        CheckBox check2 = new CheckBox("Giỏi");
+        CheckBox check3 = new CheckBox("Khá");
+        ComboBox cb1 = new ComboBox(FXCollections.observableArrayList(a));
+        ComboBox cb2 = new ComboBox(FXCollections.observableArrayList(a)); 
+        ComboBox cb3 = new ComboBox(FXCollections.observableArrayList(a));
+        TextField t1 = new TextField("100000");
+        TextField t2 = new TextField("200000");
+        TextField t3 = new TextField("300000");
+        
+        check1.selectedProperty().set(true);
+        check2.selectedProperty().set(true);
+        check3.selectedProperty().set(true);
+        
+        cb1.getSelectionModel().select(3);
+        cb2.getSelectionModel().select(3);
+        cb3.getSelectionModel().select(3);
+        
+        GridPane gp = new GridPane();
+        
+        gp.add(new Text("Muc do HB"), 0, 0);
+        gp.add(new Text("So luong"), 1, 0);
+        gp.add(new Text("Tien thuong"), 2, 0);
+        
+        gp.add(check1, 0, 1);
+        gp.add(check2, 0, 2);
+        gp.add(check3, 0, 3);
+        
+        gp.add(cb1, 1, 1);
+        gp.add(cb2, 1, 2);
+        gp.add(cb3, 1, 3);
+        
+        gp.add(t1, 2, 1);
+        gp.add(t2, 2, 2);
+        gp.add(t3, 2, 3);
+        
+        VBox vbox = new VBox(gp);
+        
+        Stage stage = new Stage();
+        Scene scene = new Scene(vbox,400,200);
+        stage.setScene(scene);
+        stage.show();
     }
     public void baocaohocphi() throws SQLException{
         

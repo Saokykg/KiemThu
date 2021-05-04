@@ -433,6 +433,16 @@ public class Utils {
         return tb;
     }
 
+    protected static String diemtoxeploai(float d){
+        String xeploai;
+        if (d<5)
+                xeploai = "Yếu";
+            else if (d<7) xeploai = "Trung bình";
+            else if (d<8) xeploai = "Khá";
+            else xeploai = "Giỏi";
+        return xeploai;
+    }
+    
     public static List<tbxeploai> getbaocaoxeploai(int n,int k) throws SQLException{
         String sql = "select mssv, ho, ten, avg(diem_giua_ki*phantram + diem_cuoi_ki*(1-phantram)) " +
                     "from sinhvien s, diem d, monhoc m, lophoc l " +
@@ -456,14 +466,44 @@ public class Utils {
         List<tbxeploai> tb = new ArrayList<>();
         while(rs.next()){
             float d = rs.getFloat(4);
-            String xeploai;
-            if (d<4)
-                xeploai = "Yếu";
-            else if (d<5) xeploai = "Trung bình";
-            else if (d<8) xeploai = "Khá";
-            else xeploai = "Giỏi";
+            String xeploai = diemtoxeploai(d);
             tbxeploai xl = new tbxeploai(rs.getInt(1), rs.getString(2)+" "+ rs.getString(3), String.format("%.2f", d), xeploai);
             tb.add(xl);
+        }
+        return tb;
+    }
+    
+    public static List<tbHocBong> createHocBong(boolean c1, boolean c2, boolean c3, int a, int b, int c, float t1, float t2, float t3) throws SQLException{
+        int count =0;
+        if (c1) count +=a;
+        if (c2) count +=b;
+        if (c3) count +=c;
+        String sql = "select ho, ten, avg(diem_giua_ki*m.phantram + diem_cuoi_ki*(1-m.phantram)) " +
+                    "from sinhvien s, diem d, lophoc l, monhoc m " +
+                    "where s.id_sinh_vien = d.id_sinh_vien and l.id_lop_hoc = d.id_lop_hoc and l.id_mon_hoc = m.id_mon_hoc " +
+                    "group by s.id_sinh_vien " +
+                    "order by 3 desc " +
+                    "limit ?";
+        Connection conn = jdbcUtils.getConn();
+        PreparedStatement stm = conn.prepareStatement(sql);
+        stm.setInt(1, count);
+        ResultSet rs = stm.executeQuery();
+        List<tbHocBong> tb = new ArrayList<>();
+        while(rs.next()){
+            tbHocBong hb = null;
+            if (rs.getFloat(3) < 7)
+                break;
+            if (c1 && a>0){
+                hb = new tbHocBong(tb.size()+1, rs.getString(1)+rs.getString(2),"Xuat sac",t1);
+                a--;
+            }else if (c2 && b>0){
+                hb = new tbHocBong(tb.size()+1, rs.getString(1)+rs.getString(2),"Gioi",t2);
+                b--;
+            }else if (c3 && c>0){
+                hb = new tbHocBong(tb.size()+1, rs.getString(1)+rs.getString(2),"Gioi",t3);
+                c--;
+            }
+            tb.add(hb);
         }
         return tb;
     }
