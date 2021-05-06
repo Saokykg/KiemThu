@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="118.0" prefWidth="402.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainSource.AddHBController">
+<VBox stylesheets="@style.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="118.0" prefWidth="402.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainSource.AddHBController">
    <children>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Thêm học bổng mới" textAlignment="CENTER" wrappingWidth="402.779296875">
          <font>

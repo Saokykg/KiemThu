@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="457.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainSource.ThongTinSinhVienController">
+<VBox stylesheets="@style.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="457.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainSource.ThongTinSinhVienController">
    <children>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Thông tin sinh viên" textAlignment="CENTER" wrappingWidth="599.71630859375">
          <font>

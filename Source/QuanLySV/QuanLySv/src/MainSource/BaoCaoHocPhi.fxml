@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainSource.BaoCaoHocPhiController">
+<VBox stylesheets="@style.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainSource.BaoCaoHocPhiController">
    <children>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Báo cáo học phí" textAlignment="CENTER" wrappingWidth="601.1337890625">
          <font>
