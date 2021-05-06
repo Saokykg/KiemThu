@@ -5,6 +5,7 @@
  */
 package MainSource;
 
+import com.mysql.cj.xdevapi.Column;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -13,11 +14,17 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -29,6 +36,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import quanly.Class.Sinhvien;
 import quanly.Class.tbHocBong;
 import quanly.Class.tbLopHoc;
 import quanly.Class.tbbchocphi;
@@ -100,7 +108,7 @@ public class BaoCaoController implements Initializable {
         this.tbmain.getItems().clear();
     }
     
-    public void baocaohocbong() throws IOException{
+    public void baocaohocbong() throws IOException, SQLException{
         
         resettable();
         
@@ -118,6 +126,21 @@ public class BaoCaoController implements Initializable {
         
         this.tbmain.getColumns().addAll(sttCol, tenCol, loaiCol, thuongCol);
         
+        
+        int nam = (int)this.cbnam.getValue();
+        int hk=0;
+        if (!this.cbhk.getSelectionModel().isEmpty())
+            hk = (int)this.cbhk.getValue();
+        int hocki = Utils.getHK(nam,hk);
+        
+        
+        if (Utils.checkHk(hocki)){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Da co hoc bong cho ky nay!!!");
+            alert.show();
+            this.tbmain.setItems(FXCollections.observableArrayList(Utils.getDsHocBong(hocki)));
+        }
+        else{
         List<Integer> a = new ArrayList<>();
         for (int i=1;i<=50;i++)
             a.add(i);
@@ -158,12 +181,89 @@ public class BaoCaoController implements Initializable {
         gp.add(t2, 2, 2);
         gp.add(t3, 2, 3);
         
+        Button btn1 = new Button("Xem trước");
+        Button btn2 = new Button("Lưu");
+        btn2.setDisable(true);
+        
+        gp.add(btn1, 1, 4);
+        gp.add(btn2, 2, 4);
+        
         VBox vbox = new VBox(gp);
         
         Stage stage = new Stage();
         Scene scene = new Scene(vbox,400,200);
         stage.setScene(scene);
         stage.show();
+        EventHandler<ActionEvent> event1 =
+                  new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e)
+            {
+                btn2.setDisable(true);
+            }
+        };
+        check1.setOnAction(event1);
+        check2.setOnAction(event1);
+        check3.setOnAction(event1);
+        cb1.setOnAction(event1);
+        cb2.setOnAction(event1);
+        cb3.setOnAction(event1);
+        
+        t1.textProperty().addListener(new ChangeListener<String>(){
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d{0,7}([\\.]\\d{0,4})?")) {
+                    t1.setText(oldValue);
+                }
+            }
+        });
+        t2.textProperty().addListener(new ChangeListener<String>(){
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d{0,7}([\\.]\\d{0,4})?")) {
+                    t2.setText(oldValue);
+                }
+            }
+        });
+        t3.textProperty().addListener(new ChangeListener<String>(){
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!newValue.matches("\\d{0,7}([\\.]\\d{0,4})?")) {
+                    t3.setText(oldValue);
+                }
+            }
+        });
+        t1.textProperty().addListener(et ->{btn2.setDisable(true);});
+        t2.textProperty().addListener(et ->{btn2.setDisable(true);});
+        t3.textProperty().addListener(et ->{btn2.setDisable(true);});
+        
+        
+        
+        
+        btn1.setOnAction((ActionEvent event) ->{
+            boolean kt1,kt2,kt3;
+            kt1=kt2=kt3=false;
+            if (check1.isSelected()) kt1=true;
+            if (check2.isSelected()) kt2=true;
+            if (check3.isSelected()) kt3=true;
+            try {
+                List<tbHocBong> tb = Utils.createHocBong(kt1, kt2, kt3, (int)cb1.getValue(), (int)cb2.getValue(), (int)cb3.getValue(),
+                        Float.parseFloat(t1.getText()),Float.parseFloat(t2.getText()),Float.parseFloat(t3.getText()), hocki);
+                this.tbmain.setItems(FXCollections.observableArrayList(tb));
+            } catch (SQLException ex) {
+                Logger.getLogger(BaoCaoController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            btn2.setDisable(false);
+        });
+        btn2.setOnAction((ActionEvent event) ->{
+            try {
+                Utils.insertHocBong(check1.isSelected(),check2.isSelected(),check3.isSelected(),
+                        (int)cb1.getValue(), (int)cb2.getValue(), (int)cb3.getValue(),
+                        Float.parseFloat(t1.getText()),Float.parseFloat(t2.getText()),Float.parseFloat(t3.getText()), hocki);
+            } catch (SQLException ex) {
+                Logger.getLogger(BaoCaoController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        }
     }
     public void baocaohocphi() throws SQLException{
         

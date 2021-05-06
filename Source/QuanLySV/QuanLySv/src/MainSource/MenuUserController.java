@@ -28,7 +28,7 @@ public class MenuUserController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
     public void doiTrang(Node node, String s) throws IOException{
         Stage stage = new Stage();
         Scene scene;

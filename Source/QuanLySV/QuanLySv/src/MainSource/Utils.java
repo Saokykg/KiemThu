@@ -5,6 +5,7 @@
  */
 package MainSource;
 
+import com.mysql.cj.protocol.Resultset;
 import com.mysql.cj.xdevapi.PreparableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -260,17 +261,16 @@ public class Utils {
     }
     
     public static List<tbHocBong> getHocBong(int id) throws SQLException{
-        String sql = "select ten_hoc_bong , ten_chi_tiet, hk.hoc_ki, nam, tien_thuong " +
-                    "from hocki hk, sinhvien_nhan_hocbong s, chi_tiet_hoc_bong c, hoc_bong hb " +
-                    "where hk.id_hoc_ki = hb.hoc_ki and c.id_hoc_bong = hb.id_hoc_bong and " +
-                    " c.id_chi_tiet_hoc_bong = s.id_chitiet_hb and s.id_sinh_vien = ? ";
+        String sql = "select mucdo, hk.hoc_ki, nam, tien_thuong " +
+                "from hocki hk, sinhvien_nhan_hocbong s, hocbong hb " +
+                "where hk.id_hoc_ki = hb.hoc_ki and s.id_hoc_bong = hb.id_hoc_bong and id_sinh_vien = ? ";
         Connection conn = jdbcUtils.getConn();
         PreparedStatement stm = conn.prepareStatement(sql);
         stm.setInt(1, id);
         ResultSet rs = stm.executeQuery();
         List<tbHocBong> hb = new ArrayList<>();
         while (rs.next()){
-            tbHocBong h = new tbHocBong(rs.getString(1) +" "+ rs.getString(2), "ki " + rs.getString(3) +" nam "+ rs.getString(4), rs.getFloat(5));
+            tbHocBong h = new tbHocBong(rs.getString(1), "ki " + rs.getString(2) +" nam "+ rs.getString(3), rs.getFloat(4));
             hb.add(h);
         }
         return hb;
@@ -473,25 +473,26 @@ public class Utils {
         return tb;
     }
     
-    public static List<tbHocBong> createHocBong(boolean c1, boolean c2, boolean c3, int a, int b, int c, float t1, float t2, float t3) throws SQLException{
+    public static List<tbHocBong> createHocBong(boolean c1, boolean c2, boolean c3, int a, int b, int c, float t1, float t2, float t3, int hk) throws SQLException{
         int count =0;
         if (c1) count +=a;
         if (c2) count +=b;
         if (c3) count +=c;
         String sql = "select ho, ten, avg(diem_giua_ki*m.phantram + diem_cuoi_ki*(1-m.phantram)) " +
                     "from sinhvien s, diem d, lophoc l, monhoc m " +
-                    "where s.id_sinh_vien = d.id_sinh_vien and l.id_lop_hoc = d.id_lop_hoc and l.id_mon_hoc = m.id_mon_hoc " +
+                    "where s.id_sinh_vien = d.id_sinh_vien and l.id_lop_hoc = d.id_lop_hoc and l.id_mon_hoc = m.id_mon_hoc and l.hoc_ki = ? " +
                     "group by s.id_sinh_vien " +
                     "order by 3 desc " +
                     "limit ?";
         Connection conn = jdbcUtils.getConn();
         PreparedStatement stm = conn.prepareStatement(sql);
-        stm.setInt(1, count);
+        stm.setInt(1, hk);
+        stm.setInt(2, count);
         ResultSet rs = stm.executeQuery();
         List<tbHocBong> tb = new ArrayList<>();
         while(rs.next()){
             tbHocBong hb = null;
-            if (rs.getFloat(3) < 7)
+            if (rs.getFloat(3) < 5)
                 break;
             if (c1 && a>0){
                 hb = new tbHocBong(tb.size()+1, rs.getString(1)+rs.getString(2),"Xuat sac",t1);
@@ -500,11 +501,66 @@ public class Utils {
                 hb = new tbHocBong(tb.size()+1, rs.getString(1)+rs.getString(2),"Gioi",t2);
                 b--;
             }else if (c3 && c>0){
-                hb = new tbHocBong(tb.size()+1, rs.getString(1)+rs.getString(2),"Gioi",t3);
+                hb = new tbHocBong(tb.size()+1, rs.getString(1)+rs.getString(2),"Kha",t3);
                 c--;
             }
             tb.add(hb);
         }
         return tb;
+    }
+
+    static void insertHocBong(boolean kt1, boolean kt2, boolean kt3, int a, int b, int c, float t1, float t2, float t3, int hk) throws SQLException {
+        String sql= "INSERT INTO `quanlysinhvien`.`hocbong` (`Muc do`, `so_luong`, `tien_thuong`, `hoc_ki`) VALUES (?,?,?,?)";
+        Connection conn = jdbcUtils.getConn();
+        PreparedStatement stm = conn.prepareStatement(sql);
+        if (kt1){
+            stm.setString(1, "Xuat sac");
+            stm.setInt(2, a);
+            stm.setFloat(3, t1);
+            stm.setInt(4, hk);
+            stm.executeUpdate();
+        }
+        if (kt2){
+            stm.setString(1, "Gioi");
+            stm.setInt(2, b);
+            stm.setFloat(3, t2);
+            stm.setInt(4, hk);
+            stm.executeUpdate();
+        }
+        if (kt3){
+            stm.setString(1, "Kha");
+            stm.setInt(2, c);
+            stm.setFloat(3, t3);
+            stm.setInt(4, hk);
+            stm.executeUpdate();
+        }
+    }
+    
+    static List<tbHocBong> getDsHocBong(int hocki) throws SQLException{
+        String sql = "select s.ho, s.ten, mucdo, tien_thuong " +
+                    "from sinhvien_nhan_hocbong sh, sinhvien s, hocbong h " +
+                    "where sh.id_sinh_vien = s.id_sinh_vien and sh.id_hoc_bong = h.id_hoc_bong and h.hoc_ki = ?";
+        Connection conn = jdbcUtils.getConn();
+        PreparedStatement stm = conn.prepareStatement(sql);
+        stm.setInt(1, hocki);
+        List<tbHocBong> tb = new ArrayList<>();
+        ResultSet rs = stm.executeQuery();
+        int i = 1;
+        while(rs.next()){
+            tbHocBong hb = new tbHocBong(i, rs.getString(1)+" "+rs.getString(2),rs.getString(3),rs.getFloat(4));
+            tb.add(hb);
+            i++;
+        }
+        return tb;
+    }
+    
+    static boolean checkHk(int hk) throws SQLException {
+        Connection conn = jdbcUtils.getConn();
+        Statement stm = conn.createStatement();
+        ResultSet rs = stm.executeQuery("Select * from hocbong where hoc_ki = " + hk);
+        if(rs.next())
+            return true;
+        else
+            return false;
     }
 }

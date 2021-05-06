@@ -74,6 +74,34 @@ public class tbHocBong {
     public void setTien(Float tien) {
         this.tien = tien;
     }
+
+    /**
+     * @return the stt
+     */
+    public int getStt() {
+        return stt;
+    }
+
+    /**
+     * @param stt the stt to set
+     */
+    public void setStt(int stt) {
+        this.stt = stt;
+    }
+
+    /**
+     * @return the mucdo
+     */
+    public String getMucdo() {
+        return mucdo;
+    }
+
+    /**
+     * @param mucdo the mucdo to set
+     */
+    public void setMucdo(String mucdo) {
+        this.mucdo = mucdo;
+    }
     
     
     
