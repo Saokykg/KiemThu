@@ -55,4 +55,14 @@ public class MenuAdmin implements Initializable {
     public void toTaiKhoan(ActionEvent event) throws IOException{
         doiTrang((Node)event.getSource(), "TaiKhoan.fxml");
     }
+    public void logout(ActionEvent event) throws IOException{
+        Node node = (Node)event.getSource();
+        Stage stage = new Stage();
+        stage = (Stage) node.getScene().getWindow();
+        stage.close();
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("login.FXML")));
+        //dialogStage.setTitle(resultSet.getString("tai_khoan"));
+        stage.setScene(scene);
+        stage.show();
+    }
 }

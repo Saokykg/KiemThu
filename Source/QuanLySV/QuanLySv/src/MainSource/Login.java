@@ -1,5 +1,6 @@
 package MainSource;
 
+import Service.jdbcUtils;
 import MainSource.ConnectionUtil;
 import MainSource.ConnectionUtil;
 import javafx.scene.control.PasswordField;
@@ -128,6 +129,7 @@ public class Login implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        this.loginid = -1;
     }   
      
 }

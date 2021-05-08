@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -11,9 +12,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="606.0" prefWidth="603.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainSource.QuanLySVController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="606.0" prefWidth="603.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainSource.QuanLySVController">
    <children>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="Subject" text="QUẢN LÝ SINH VIÊN">
+      <Button fx:id="idback" mnemonicParsing="false" onAction="#back" text="back" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="Subject" text="QUẢN LÝ SINH VIÊN" textAlignment="CENTER" wrappingWidth="603.765625">
          <font>
             <Font size="43.0" />
          </font>
@@ -56,8 +58,8 @@
             <TextField fx:id="txtMssv" GridPane.columnIndex="1" />
             <TextField fx:id="txtHo" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="txtTen" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="txtNgaySinh" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="txtQueQuan" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <DatePicker fx:id="txtNgaySinh" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
       <HBox alignment="CENTER" prefHeight="43.0" prefWidth="603.0">

@@ -5,6 +5,11 @@
  */
 package MainSource;
 
+import Service.Utils;
+import Service.diemService;
+import Service.hockiService;
+import Service.lophocService;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -17,14 +22,19 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import quanly.Class.Diem;
 import quanly.Class.Hocki;
 import quanly.Class.Lophoc;
@@ -97,7 +107,7 @@ public class TraCuuDiemController implements Initializable {
         this.tbDiem.getColumns().addAll(mssvCol, tensvCol, monCol1, gkCol, ckCol, tileCol);
         
         try {
-            this.cbHocKi.getItems().addAll(Utils.getHK());
+            this.cbHocKi.getItems().addAll(hockiService.getHK());
         } catch (SQLException ex) {
             Logger.getLogger(TraCuuDiemController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -106,7 +116,7 @@ public class TraCuuDiemController implements Initializable {
             row.setOnMouseClicked(r ->{
                 tbLopHoc lop = this.tbLop.getSelectionModel().getSelectedItem();
                 try {
-                    this.tbDiem.setItems(FXCollections.observableArrayList(Utils.getDiem(lop.getId())));
+                    this.tbDiem.setItems(FXCollections.observableArrayList(diemService.getDiem(lop.getId())));
                     if (tbDiem.getItems().isEmpty()){
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setContentText("Khong co bang diem trong lop nay!!!");
@@ -121,7 +131,7 @@ public class TraCuuDiemController implements Initializable {
     }    
     public void hkchose() throws SQLException, ParseException{
         this.cbLopHoc.getItems().clear();
-        this.cbLopHoc.getItems().addAll(Utils.getLH(this.cbHocKi.getValue().getId()));
+        this.cbLopHoc.getItems().addAll(lophocService.getLH(this.cbHocKi.getValue().getId()));
         if (this.cbLopHoc.getItems().isEmpty()){
             this.cbLopHoc.setDisable(true);
             tbLop.getItems().clear();
@@ -145,5 +155,14 @@ public class TraCuuDiemController implements Initializable {
         }
         tbLop.setItems(FXCollections.observableArrayList(kq));
     }
-    
+    public void back(ActionEvent event) throws IOException{
+        Node node = (Node)event.getSource();
+        Stage stage = new Stage();
+        stage = (Stage) node.getScene().getWindow();
+        stage.close();
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("MenuAdmin.FXML")));
+        //dialogStage.setTitle(resultSet.getString("tai_khoan"));
+        stage.setScene(scene);
+        stage.show();
+    }
 }

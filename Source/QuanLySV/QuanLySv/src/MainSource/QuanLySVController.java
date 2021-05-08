@@ -5,19 +5,29 @@
  */
 package MainSource;
 
+import Service.Utils;
+import Service.sinhvienService;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
@@ -49,7 +59,7 @@ public class QuanLySVController implements Initializable {
     @FXML
     private TextField txtTen;
     @FXML
-    private TextField txtNgaySinh;
+    private DatePicker txtNgaySinh;
     @FXML
     private TextField txtQueQuan;
     @FXML
@@ -61,7 +71,8 @@ public class QuanLySVController implements Initializable {
      * Initializes the controller class.
      */
     
-    
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -78,9 +89,14 @@ public class QuanLySVController implements Initializable {
         tbSinhVien.getColumns().addAll(mssvCol, hoCol, tenCol);
         
         this.btnCapNhat.setVisible(false);
+        this.txtMssv.setDisable(true);
         
         try {
-            loadSinhVien();
+            try {
+                loadSinhVien();
+            } catch (ParseException ex) {
+                Logger.getLogger(QuanLySVController.class.getName()).log(Level.SEVERE, null, ex);
+            }
             addButtonXoaToTable();
         } catch (SQLException ex) {
             Logger.getLogger(QuanLySVController.class.getName()).log(Level.SEVERE, null, ex);
@@ -93,9 +109,14 @@ public class QuanLySVController implements Initializable {
                 this.txtMssv.setText(sv.getMssv());
                 this.txtHo.setText(sv.getHo());
                 this.txtTen.setText(sv.getTen());
-                this.txtNgaySinh.setText(sv.getNgaysinh());
+                try {
+                    this.txtNgaySinh.setValue(Utils.todatetime(sv.getNgaysinh()).toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+                } catch (ParseException ex) {
+                    Logger.getLogger(QuanLySVController.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 this.txtQueQuan.setText(sv.getQuequan());
                 this.btnCapNhat.setVisible(true);
+                this.btnThem.setDisable(true);
             });
             return row;
         });
@@ -106,19 +127,20 @@ public class QuanLySVController implements Initializable {
         
     }    
     
-    public void timkiem() throws SQLException{
+    public void timkiem() throws SQLException, ParseException{
         tbSinhVien.getItems().clear();
         loadSinhVien();
     }
     
-    public void loadSinhVien() throws SQLException{
+    public void loadSinhVien() throws SQLException, ParseException{
         this.btnCapNhat.setVisible(false);
         this.txtMssv.clear();
         this.txtHo.clear();
         this.txtTen.clear();
-        this.txtNgaySinh.clear();
+        this.txtNgaySinh.setValue(Utils.todatetime("01/01/1900").toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         this.txtQueQuan.clear();
-        tbSinhVien.setItems(FXCollections.observableArrayList(Utils.getSinhVien(tenSV.getText())));
+        this.btnThem.setDisable(false);
+        tbSinhVien.setItems(FXCollections.observableArrayList(sinhvienService.getSinhVien(tenSV.getText())));
     }
     private void addButtonXoaToTable() {
         TableColumn<Sinhvien, Void> colBtn = new TableColumn("Button Column");
@@ -134,7 +156,7 @@ public class QuanLySVController implements Initializable {
                         btn.setOnAction((ActionEvent event) -> {
                             Sinhvien sv = getTableView().getItems().get(getIndex());
                             try {
-                                Utils.delSinhVien(sv);
+                                sinhvienService.delSinhVien(sv);
                             } catch (SQLException ex) {
                                 Logger.getLogger(QuanLySVController.class.getName()).log(Level.SEVERE, null, ex);
                             }
@@ -160,34 +182,42 @@ public class QuanLySVController implements Initializable {
 
         tbSinhVien.getColumns().add(colBtn);
     }
-    public void  capnhat() throws SQLException{
+    public void  capnhat() throws SQLException, ParseException{
         Sinhvien sv = this.tbSinhVien.getSelectionModel().getSelectedItem();
         
         sv.setMssv(txtMssv.getText());
         sv.setHo(txtHo.getText());
         sv.setTen(txtTen.getText());
-        sv.setNgaysinh(txtNgaySinh.getText());
+        sv.setNgaysinh(txtNgaySinh.getValue().format(formatter));
         sv.setQuequan(txtQueQuan.getText());
         
-        Utils.updateSV(sv);
+        sinhvienService.updateSV(sv);
         this.tbSinhVien.getItems().clear();
         loadSinhVien();
-        loadSinhVien();
     }
-    public void them() throws SQLException{
-        String a = txtMssv.getText();
+    public void them() throws SQLException, ParseException{
         String b = txtHo.getText();
         String c = txtTen.getText();
-        String d = txtNgaySinh.getText();
+        String d = txtNgaySinh.getValue().format(formatter);
         String e = txtQueQuan.getText();
-        if (a == "" || b =="" || c =="" || d =="" || e ==""){
+        if (b =="" || c =="" || d =="" || e ==""){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Nhap thieu thong tin!!!");
             alert.show();
         }
         else{
-            Utils.themSV(a,b,c,d,e);
+            sinhvienService.themSV(b,c,d,e);
         }
         loadSinhVien();
+    }
+    public void back(ActionEvent event) throws IOException{
+        Node node = (Node)event.getSource();
+        Stage stage = new Stage();
+        stage = (Stage) node.getScene().getWindow();
+        stage.close();
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("MenuAdmin.FXML")));
+        //dialogStage.setTitle(resultSet.getString("tai_khoan"));
+        stage.setScene(scene);
+        stage.show();
     }
 }

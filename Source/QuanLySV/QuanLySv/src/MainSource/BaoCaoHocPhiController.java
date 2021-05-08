@@ -5,6 +5,10 @@
  */
 package MainSource;
 
+import Service.Utils;
+import Service.hockiService;
+import Service.lophocService;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -13,14 +17,21 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import quanly.Class.Hocki;
 import quanly.Class.tbLopHoc;
 
 /**
@@ -42,6 +53,8 @@ public class BaoCaoHocPhiController implements Initializable {
     private Text txttinchi;
     @FXML
     private Text txttongtien;
+    @FXML
+    private Button idback;
     /**
      * Initializes the controller class.
      */
@@ -53,7 +66,7 @@ public class BaoCaoHocPhiController implements Initializable {
         this.cbhk.getItems().add(2);
         this.cbhk.getItems().add(3);
         try {
-            this.cbnam.getItems().addAll(Utils.countNam());
+            this.cbnam.getItems().addAll(hockiService.countNam());
         } catch (SQLException ex) {
             Logger.getLogger(BaoCaoHocPhiController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -81,14 +94,14 @@ public class BaoCaoHocPhiController implements Initializable {
         this.txttinchi.setText("");
         this.txttongtien.setText("");
         if (nam){
-            int hocki = Utils.getIdhk((int)this.cbhk.getValue(), (int)this.cbnam.getValue());;
+            int hocki = hockiService.getIdhk((int)this.cbhk.getValue(), (int)this.cbnam.getValue());;
             if (hocki == -1){
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setContentText("Hoc ki khong ton tai!!!");
                 alert.show();
             }
             else{
-                this.tbhocphi.setItems(FXCollections.observableArrayList(Utils.getLH(hocki, Login.loginid)));
+                this.tbhocphi.setItems(FXCollections.observableArrayList(lophocService.getLH(hocki, Login.loginid)));
                 int tc = 0, mon =0;
                 float hp = 0;
                 for (tbLopHoc lh : this.tbhocphi.getItems()){
@@ -108,14 +121,14 @@ public class BaoCaoHocPhiController implements Initializable {
         this.txttinchi.setText("");
         this.txttongtien.setText("");
         if (hk){
-            int hocki = Utils.getIdhk((int)this.cbhk.getValue(), (int)this.cbnam.getValue());
+            int hocki = hockiService.getIdhk((int)this.cbhk.getValue(), (int)this.cbnam.getValue());
             if (hocki == -1){
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setContentText("Hoc ki khong ton tai!!!");
                 alert.show();
             }
             else{
-                this.tbhocphi.setItems(FXCollections.observableArrayList(Utils.getLH(hocki, Login.loginid)));
+                this.tbhocphi.setItems(FXCollections.observableArrayList(lophocService.getLH(hocki, Login.loginid)));
                 int tc = 0, mon =0;
                 float hp = 0;
                 for (tbLopHoc lh : this.tbhocphi.getItems()){
@@ -128,5 +141,15 @@ public class BaoCaoHocPhiController implements Initializable {
                 this.txttongtien.setText(String.format("%s", hp));
             }
         }
+    }
+    public void back(ActionEvent event) throws IOException{
+        Node node = (Node)event.getSource();
+        Stage stage = new Stage();
+        stage = (Stage) node.getScene().getWindow();
+        stage.close();
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("MenuUser.FXML")));
+        //dialogStage.setTitle(resultSet.getString("tai_khoan"));
+        stage.setScene(scene);
+        stage.show();
     }
 }

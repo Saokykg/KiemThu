@@ -5,6 +5,11 @@
  */
 package MainSource;
 
+import Service.Utils;
+import Service.diemService;
+import Service.hockiService;
+import Service.lophocService;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -14,8 +19,12 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
@@ -23,6 +32,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import quanly.Class.Hocki;
 import quanly.Class.tbDiem;
 import quanly.Class.tbLopHoc;
@@ -51,7 +61,7 @@ public class DangKyController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         try {
-            idhk = Utils.getIdhkNow();
+            idhk = hockiService.getIdhkNow();
         } catch (SQLException ex) {
             Logger.getLogger(DangKyController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -95,7 +105,7 @@ public class DangKyController implements Initializable {
         this.tbLop.getColumns().addAll(monCol2, thuCol2, caCol2, bdCol2, ktCol2);
         
         try {
-            this.tbLop.setItems(FXCollections.observableArrayList(Utils.getLH(idhk)));
+            this.tbLop.setItems(FXCollections.observableArrayList(lophocService.getLH(idhk)));
         } catch (SQLException ex) {
             Logger.getLogger(DangKyController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
@@ -129,7 +139,7 @@ public class DangKyController implements Initializable {
             try {
                 this.tbLop.getItems().clear();
                 List<tbLopHoc> lh = this.tbDangKy.getItems().sorted();
-                List<tbLopHoc> tatca = Utils.getLH(this.txtkey.getText(),idhk);
+                List<tbLopHoc> tatca = lophocService.getLH(this.txtkey.getText(),idhk);
                 for (tbLopHoc a : tatca){
                     boolean kt = true;
                     for (tbLopHoc l : lh){
@@ -150,7 +160,7 @@ public class DangKyController implements Initializable {
     }    
     public void dangky() throws SQLException, ParseException{
         List<tbLopHoc> dk = this.tbDangKy.getItems();
-        Utils.dangky(dk, Login.loginid);
+        diemService.dangky(dk, Login.loginid);
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText("Dk thanh cong!!!");
         alert.show();
@@ -160,6 +170,16 @@ public class DangKyController implements Initializable {
         this.txtkey.clear();
         this.tbDangKy.getItems().clear();
         this.tbLop.getItems().clear();
-        this.tbLop.setItems(FXCollections.observableArrayList(Utils.getLH(idhk)));
+        this.tbLop.setItems(FXCollections.observableArrayList(lophocService.getLH(idhk)));
+    }
+    public void back(ActionEvent event) throws IOException{
+        Node node = (Node)event.getSource();
+        Stage stage = new Stage();
+        stage = (Stage) node.getScene().getWindow();
+        stage.close();
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("MenuUser.FXML")));
+        //dialogStage.setTitle(resultSet.getString("tai_khoan"));
+        stage.setScene(scene);
+        stage.show();
     }
 }

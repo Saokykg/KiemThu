@@ -21,7 +21,6 @@ GridPane {
     -fx-stroke-width: 1;
     -fx-font-weight: bold;
 }
-
 Button {
     -fx-background-color: #4CAF50;
     -fx-text-fill: white;

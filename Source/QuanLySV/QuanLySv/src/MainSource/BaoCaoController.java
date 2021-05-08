@@ -5,6 +5,10 @@
  */
 package MainSource;
 
+import Service.Utils;
+import Service.hocbongService;
+import Service.hockiService;
+import Service.tableService;
 import com.mysql.cj.xdevapi.Column;
 import java.io.IOException;
 import java.net.URL;
@@ -23,6 +27,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -63,7 +68,8 @@ public class BaoCaoController implements Initializable {
     private GridPane gpMain;
     @FXML
     public TableView tbmain;
-    
+    @FXML
+    private Button btnback;
     
     /**
      * Initializes the controller class.
@@ -73,7 +79,7 @@ public class BaoCaoController implements Initializable {
         // TODO
         reset();
         try {
-            this.cbnam.getItems().addAll(Utils.countNam());
+            this.cbnam.getItems().addAll(hockiService.countNam());
         } catch (SQLException ex) {
             Logger.getLogger(BaoCaoController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -83,7 +89,7 @@ public class BaoCaoController implements Initializable {
         if (!this.cbnam.getSelectionModel().isEmpty()){
             this.cbhk.setDisable(false);
             this.cbhk.getItems().clear();
-            this.cbhk.getItems().addAll(Utils.countHk((int)this.cbnam.getValue()));
+            this.cbhk.getItems().addAll(hockiService.countHk((int)this.cbnam.getValue()));
         }
         this.btnHocBong.setDisable(false);
         this.btnHocPhi.setDisable(false);
@@ -131,14 +137,14 @@ public class BaoCaoController implements Initializable {
         int hk=0;
         if (!this.cbhk.getSelectionModel().isEmpty())
             hk = (int)this.cbhk.getValue();
-        int hocki = Utils.getHK(nam,hk);
+        int hocki = hockiService.getHK(nam,hk);
         
         
-        if (Utils.checkHk(hocki)){
+        if (hocbongService.checkHk(hocki)){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Da co hoc bong cho ky nay!!!");
             alert.show();
-            this.tbmain.setItems(FXCollections.observableArrayList(Utils.getDsHocBong(hocki)));
+            this.tbmain.setItems(FXCollections.observableArrayList(tableService.getDsHocBong(hocki)));
         }
         else{
         List<Integer> a = new ArrayList<>();
@@ -246,7 +252,7 @@ public class BaoCaoController implements Initializable {
             if (check2.isSelected()) kt2=true;
             if (check3.isSelected()) kt3=true;
             try {
-                List<tbHocBong> tb = Utils.createHocBong(kt1, kt2, kt3, (int)cb1.getValue(), (int)cb2.getValue(), (int)cb3.getValue(),
+                List<tbHocBong> tb = hocbongService.createHocBong(kt1, kt2, kt3, (int)cb1.getValue(), (int)cb2.getValue(), (int)cb3.getValue(),
                         Float.parseFloat(t1.getText()),Float.parseFloat(t2.getText()),Float.parseFloat(t3.getText()), hocki);
                 this.tbmain.setItems(FXCollections.observableArrayList(tb));
             } catch (SQLException ex) {
@@ -256,7 +262,7 @@ public class BaoCaoController implements Initializable {
         });
         btn2.setOnAction((ActionEvent event) ->{
             try {
-                Utils.insertHocBong(check1.isSelected(),check2.isSelected(),check3.isSelected(),
+                hocbongService.insertHocBong(check1.isSelected(),check2.isSelected(),check3.isSelected(),
                         (int)cb1.getValue(), (int)cb2.getValue(), (int)cb3.getValue(),
                         Float.parseFloat(t1.getText()),Float.parseFloat(t2.getText()),Float.parseFloat(t3.getText()), hocki);
             } catch (SQLException ex) {
@@ -287,7 +293,7 @@ public class BaoCaoController implements Initializable {
         int hk=0;
         if (!this.cbhk.getSelectionModel().isEmpty())
             hk = (int)this.cbhk.getValue();
-        this.tbmain.setItems(FXCollections.observableArrayList(Utils.getbaocaohocphi(nam, hk)));
+        this.tbmain.setItems(FXCollections.observableArrayList(tableService.getbaocaohocphi(nam, hk)));
         
     }
     public void baocaoxeploai() throws SQLException{
@@ -312,7 +318,17 @@ public class BaoCaoController implements Initializable {
         int hk=0;
         if (!this.cbhk.getSelectionModel().isEmpty())
             hk = (int)this.cbhk.getValue();
-        this.tbmain.setItems(FXCollections.observableArrayList(Utils.getbaocaoxeploai(nam, hk)));
+        this.tbmain.setItems(FXCollections.observableArrayList(tableService.getbaocaoxeploai(nam, hk)));
         
+    }
+    public void back(ActionEvent event) throws IOException{
+        Node node = (Node)event.getSource();
+        Stage stage = new Stage();
+        stage = (Stage) node.getScene().getWindow();
+        stage.close();
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("MenuAdmin.FXML")));
+        //dialogStage.setTitle(resultSet.getString("tai_khoan"));
+        stage.setScene(scene);
+        stage.show();
     }
 }

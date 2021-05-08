@@ -5,19 +5,29 @@
  */
 package MainSource;
 
-import static MainSource.Utils.getSinhVien;
+import Service.Utils;
+import Service.hocbongService;
+import Service.monhocService;
+import Service.sinhvienService;
+import Service.svhocbongService;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import quanly.Class.Sinhvien;
 import quanly.Class.tbHocBong;
 import quanly.Class.twoInt;
@@ -56,7 +66,7 @@ public class ThongTinSinhVienController implements Initializable {
         // TODO
         int idc = MainSource.Login.loginid;
         try {
-            Sinhvien sv = getSinhVien(idc);
+            Sinhvien sv = sinhvienService.getSinhVien(idc);
             this.txtTen.setText(sv.toString());
             this.txtMSSV.setText(sv.getMssv());
             this.txtNgaysinh.setText(sv.getNgaysinh());
@@ -76,7 +86,7 @@ public class ThongTinSinhVienController implements Initializable {
         
         this.tbHocbong.getColumns().addAll(hkCol, tenCol, tienCol);
         try {
-            this.tbHocbong.setItems(FXCollections.observableArrayList(Utils.getHocBong(idc)));
+            this.tbHocbong.setItems(FXCollections.observableArrayList(svhocbongService.getHocBong(idc)));
         } catch (SQLException ex) {
             Logger.getLogger(ThongTinSinhVienController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -86,7 +96,7 @@ public class ThongTinSinhVienController implements Initializable {
         } 
         this.txtTongtien.setText("Tổng tiền thưởng : " + tongtien);
         try {
-            twoInt res = Utils.monTinchi(idc);
+            twoInt res = monhocService.monTinchi(idc);
             this.txtTongmon.setText(txtTongmon.getText() + res.getA());
             this.txtSotinchi.setText(txtSotinchi.getText() + res.getB());
             this.txtDiem.setText(txtDiem.getText() + String.format("%.2f", res.getC()));
@@ -94,5 +104,14 @@ public class ThongTinSinhVienController implements Initializable {
             Logger.getLogger(ThongTinSinhVienController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }    
-    
+    public void back(ActionEvent event) throws IOException{
+        Node node = (Node)event.getSource();
+        Stage stage = new Stage();
+        stage = (Stage) node.getScene().getWindow();
+        stage.close();
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("MenuUser.FXML")));
+        //dialogStage.setTitle(resultSet.getString("tai_khoan"));
+        stage.setScene(scene);
+        stage.show();
+    }
 }
