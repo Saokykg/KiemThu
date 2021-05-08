@@ -20,12 +20,11 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/jacky/Desktop/Source/kiemthu/Source/QuanLySV/QuanLySv/src/MainSource/Login.java</file>
             <file>file:/C:/Users/jacky/Desktop/Source/kiemthu/Source/QuanLySV/QuanLySv/src/MainSource/Main.java</file>
-            <file>file:/C:/Users/jacky/Desktop/Source/kiemthu/Source/QuanLySV/QuanLySv/src/MainSource/MenuUserController.java</file>
-            <file>file:/C:/Users/jacky/Desktop/Source/kiemthu/Source/QuanLySV/QuanLySv/src/MainSource/Utils.java</file>
-            <file>file:/C:/Users/jacky/Desktop/Source/kiemthu/Source/QuanLySV/QuanLySv/src/quanly/Class/tbHocBong.java</file>
-            <file>file:/C:/Users/jacky/Desktop/Source/kiemthu/Source/QuanLySV/QuanLySv/src/MainSource/BaoCaoController.java</file>
+            <file>file:/C:/Users/jacky/Desktop/Source/kiemthu/Source/QuanLySV/QuanLySv/src/MainSource/QuanLySVController.java</file>
+            <file>file:/C:/Users/jacky/Desktop/Source/kiemthu/Source/QuanLySV/QuanLySv/src/Service/Utils.java</file>
+            <file>file:/C:/Users/jacky/Desktop/Source/kiemthu/Source/QuanLySV/QuanLySv/src/Service/svhocbongService.java</file>
+            <file>file:/C:/Users/jacky/Desktop/Source/kiemthu/Source/QuanLySV/QuanLySv/src/Service/hockiService.java</file>
         </group>
     </open-files>
 </project-private>

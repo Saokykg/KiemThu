@@ -12,6 +12,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
@@ -196,19 +197,27 @@ public class QuanLySVController implements Initializable {
         loadSinhVien();
     }
     public void them() throws SQLException, ParseException{
-        String b = txtHo.getText();
-        String c = txtTen.getText();
-        String d = txtNgaySinh.getValue().format(formatter);
-        String e = txtQueQuan.getText();
-        if (b =="" || c =="" || d =="" || e ==""){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Nhap thieu thong tin!!!");
-            alert.show();
+        int check = LocalDateTime.now().getYear() - txtNgaySinh.getValue().getYear();
+        if ( check >= 18 && check <60){
+            String b = txtHo.getText();
+            String c = txtTen.getText();
+            String d = txtNgaySinh.getValue().format(formatter);
+            String e = txtQueQuan.getText();
+            if (b =="" || c =="" || d =="" || e ==""){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Nhap thieu thong tin!!!");
+                alert.show();
+            }
+            else{
+                sinhvienService.themSV(b,c,d,e);
+            }
+            loadSinhVien();
         }
         else{
-            sinhvienService.themSV(b,c,d,e);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Nam sinh khong hop le!!!");
+            alert.show();
         }
-        loadSinhVien();
     }
     public void back(ActionEvent event) throws IOException{
         Node node = (Node)event.getSource();
