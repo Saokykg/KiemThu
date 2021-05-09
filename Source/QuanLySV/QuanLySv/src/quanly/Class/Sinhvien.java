@@ -29,7 +29,25 @@ public class Sinhvien {
         this.quequan = quequan;
         this.id_acc = idacc;
     }
-    
+    public Object get(int x){
+        switch (x){
+            case 0:
+                return this.id;
+            case 1:
+                return this.mssv;
+            case 2:
+                return this.ho;
+            case 3:
+                return this.ten;
+            case 4:
+                return this.ngaysinh;
+            case 5:
+                return this.quequan;
+            case 6:
+                return this.id_acc;
+        }
+        return null;
+    }
     @Override
     public String toString() {
         return ho + " " + ten;

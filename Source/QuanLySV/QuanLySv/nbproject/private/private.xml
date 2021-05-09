@@ -2,14 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="2">
         <file>
-            <url>src/MainSource/Main.java</url>
-            <bookmark id="2">
-                <name/>
-                <line>22</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
             <url>src/MainSource/MenuUserController.java</url>
             <bookmark id="1">
                 <name/>
@@ -17,14 +9,25 @@
                 <key/>
             </bookmark>
         </file>
+        <file>
+            <url>src/MainSource/Main.java</url>
+            <bookmark id="2">
+                <name/>
+                <line>22</line>
+                <key/>
+            </bookmark>
+        </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/jacky/Desktop/Source/kiemthu/Source/QuanLySV/QuanLySv/src/quanly/Class/Sinhvien.java</file>
+            <file>file:/C:/Users/jacky/Desktop/Source/kiemthu/Source/QuanLySV/QuanLySv/src/Service/jdbcUtils.java</file>
             <file>file:/C:/Users/jacky/Desktop/Source/kiemthu/Source/QuanLySV/QuanLySv/src/MainSource/Main.java</file>
-            <file>file:/C:/Users/jacky/Desktop/Source/kiemthu/Source/QuanLySV/QuanLySv/src/MainSource/QuanLySVController.java</file>
+            <file>file:/C:/Users/jacky/Desktop/Source/kiemthu/Source/QuanLySV/QuanLySv/test/Service/sinhvienServiceTest.java</file>
             <file>file:/C:/Users/jacky/Desktop/Source/kiemthu/Source/QuanLySV/QuanLySv/src/Service/Utils.java</file>
-            <file>file:/C:/Users/jacky/Desktop/Source/kiemthu/Source/QuanLySV/QuanLySv/src/Service/svhocbongService.java</file>
+            <file>file:/C:/Users/jacky/Desktop/Source/kiemthu/Source/QuanLySV/QuanLySv/test/Service/hockiServiceTest.java</file>
             <file>file:/C:/Users/jacky/Desktop/Source/kiemthu/Source/QuanLySV/QuanLySv/src/Service/hockiService.java</file>
+            <file>file:/C:/Users/jacky/Desktop/Source/kiemthu/Source/QuanLySV/QuanLySv/src/Service/sinhvienService.java</file>
         </group>
     </open-files>
 </project-private>

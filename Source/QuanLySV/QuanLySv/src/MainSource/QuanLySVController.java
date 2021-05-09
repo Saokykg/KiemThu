@@ -157,7 +157,7 @@ public class QuanLySVController implements Initializable {
                         btn.setOnAction((ActionEvent event) -> {
                             Sinhvien sv = getTableView().getItems().get(getIndex());
                             try {
-                                sinhvienService.delSinhVien(sv);
+                                sinhvienService.delSinhVien(sv.getId(), sv.getId_acc());
                             } catch (SQLException ex) {
                                 Logger.getLogger(QuanLySVController.class.getName()).log(Level.SEVERE, null, ex);
                             }

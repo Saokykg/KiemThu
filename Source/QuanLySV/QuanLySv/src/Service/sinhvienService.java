@@ -34,7 +34,7 @@ public class sinhvienService {
         
     }
     public static String getthu(Date date){
-       DateFormat format2=new SimpleDateFormat("EEEE"); 
+        DateFormat format2=new SimpleDateFormat("EEEE"); 
         String finalDay=format2.format(date);
         return finalDay.toString();
     }
@@ -57,16 +57,16 @@ public class sinhvienService {
         }
         return sinhvien;
     }
-    public static void delSinhVien(Sinhvien sv) throws SQLException {
+    public static void delSinhVien(int id, int id_acc) throws SQLException {
         Connection conn = jdbcUtils.getConn();
         String sql = "Delete from SinhVien where id_sinh_vien = ?";
         PreparedStatement stm = conn.prepareStatement(sql);
-        stm.setInt(1, sv.getId());
+        stm.setInt(1, id);
         stm.executeUpdate();
         
         String sql2 = "Delete from account where id_account = ?";
         PreparedStatement stm2 = conn.prepareStatement(sql2);
-        stm2.setInt(1, sv.getId_acc());
+        stm2.setInt(1, id_acc);
         stm2.executeUpdate();
         
         resetcounter("sinhvien");

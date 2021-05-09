@@ -25,6 +25,20 @@ public class Account {
     /**
      * @return the id
      */
+    
+    public Object get(int x){
+        switch (x){
+            case 0:
+                return this.id;
+            case 1:
+                return this.username;
+            case 2:
+                return this.password;
+            case 3:
+                return this.loaitk;
+        }
+        return null;
+    }
     public int getId() {
         return id;
     }

@@ -33,6 +33,7 @@ public class accountService {
         stm.setString(1, pass);
         stm.setInt(2, id);
         stm.executeUpdate();
+        
     }
 
 }

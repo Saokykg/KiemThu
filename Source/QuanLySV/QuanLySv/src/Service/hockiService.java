@@ -45,11 +45,11 @@ public class hockiService {
         return id + 1;
     }
     
-    public static int getIdhk(int m, int y) throws SQLException{
+    public static int getIdhk(int hk, int y) throws SQLException{
         String sql = "select id_hoc_ki from hocki where hoc_ki = ? and nam = ?";
         Connection conn = jdbcUtils.getConn();
         PreparedStatement stm = conn.prepareStatement(sql);
-        stm.setInt(1, m);
+        stm.setInt(1, hk);
         stm.setInt(2, y);
         ResultSet rs = stm.executeQuery();
         int id;
