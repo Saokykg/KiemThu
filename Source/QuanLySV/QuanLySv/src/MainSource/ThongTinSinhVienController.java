@@ -96,7 +96,7 @@ public class ThongTinSinhVienController implements Initializable {
         } 
         this.txtTongtien.setText("Tổng tiền thưởng : " + tongtien);
         try {
-            twoInt res = monhocService.monTinchi(idc);
+            twoInt res = monhocService.testMonTinchiDiemTB(idc);
             this.txtTongmon.setText(txtTongmon.getText() + res.getA());
             this.txtSotinchi.setText(txtSotinchi.getText() + res.getB());
             this.txtDiem.setText(txtDiem.getText() + String.format("%.2f", res.getC()));

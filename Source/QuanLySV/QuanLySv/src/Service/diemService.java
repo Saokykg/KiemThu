@@ -32,8 +32,8 @@ public class diemService {
         ResultSet rs = stm.executeQuery();
         List<tbDiem> lophoc = new ArrayList<>();
         while(rs.next()){
-            tbDiem lop = new tbDiem(rs.getString(1), rs.getString(2), rs.getString(3), String.valueOf(rs.getFloat(4)), 
-                                String.valueOf(rs.getFloat(5)), String.valueOf(rs.getFloat(6)));
+            tbDiem lop = new tbDiem(rs.getString(1), rs.getString(2), rs.getString(3), rs.getFloat(4), 
+                                rs.getFloat(5), rs.getFloat(6));
             lophoc.add(lop);
         }
         return lophoc;

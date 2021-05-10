@@ -22,15 +22,17 @@ public class tbLopHoc {
     private int ca;
     private int tinchi;
     private float hocphi;
+    private int idhk;
     /**
      * @return the mon
      */
-    public tbLopHoc(int id, String mon, String bd, String kt, int ca) throws ParseException{
+    public tbLopHoc(int id, String mon, String bd, String kt, int ca, int idhk) throws ParseException{
         this.id = id;
         this.mon= mon;
         this.bd = bd;
         this.kt = kt;
         this.ca = ca;
+        this.idhk = idhk;
         this.thu = Utils.getthu(Utils.todatetime(bd));
     }
     public tbLopHoc(int id, String mon, int tc, float hocphi) throws ParseException{
@@ -39,7 +41,10 @@ public class tbLopHoc {
         this.tinchi = tc;
         this.hocphi = hocphi;
     }
-
+    public tbLopHoc(int id, String mon){
+        this.id = id;
+        this.mon = mon;
+    }
     @Override
     public String toString() {
         return this.mon; //To change body of generated methods, choose Tools | Templates.
@@ -152,6 +157,20 @@ public class tbLopHoc {
      */
     public void setHocphi(float hocphi) {
         this.hocphi = hocphi;
+    }
+
+    /**
+     * @return the idhk
+     */
+    public int getIdhk() {
+        return idhk;
+    }
+
+    /**
+     * @param idhk the idhk to set
+     */
+    public void setIdhk(int idhk) {
+        this.idhk = idhk;
     }
 
     

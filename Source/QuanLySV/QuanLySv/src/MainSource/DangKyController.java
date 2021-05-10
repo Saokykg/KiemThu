@@ -159,10 +159,14 @@ public class DangKyController implements Initializable {
         });
     }    
     public void dangky() throws SQLException, ParseException{
-        List<tbLopHoc> dk = this.tbDangKy.getItems();
-        diemService.dangky(dk, Login.loginid);
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText("Dk thanh cong!!!");
+        if (tbDangKy.getItems().size()!=0){
+            List<tbLopHoc> dk = this.tbDangKy.getItems();
+            diemService.dangky(dk, Login.loginid);
+            alert.setContentText("Dk thanh cong!!!");
+        }
+        else
+            alert.setContentText("Dk that bai, vui long chon mon hoc can dk!!!");
         alert.show();
         reset();
     }

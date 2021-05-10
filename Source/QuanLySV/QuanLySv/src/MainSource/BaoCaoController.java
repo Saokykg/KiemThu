@@ -252,7 +252,7 @@ public class BaoCaoController implements Initializable {
             if (check2.isSelected()) kt2=true;
             if (check3.isSelected()) kt3=true;
             try {
-                List<tbHocBong> tb = hocbongService.createHocBong(kt1, kt2, kt3, (int)cb1.getValue(), (int)cb2.getValue(), (int)cb3.getValue(),
+                List<tbHocBong> tb = hocbongService.createHocBongSvNhan(kt1, kt2, kt3, (int)cb1.getValue(), (int)cb2.getValue(), (int)cb3.getValue(),
                         Float.parseFloat(t1.getText()),Float.parseFloat(t2.getText()),Float.parseFloat(t3.getText()), hocki);
                 this.tbmain.setItems(FXCollections.observableArrayList(tb));
             } catch (SQLException ex) {

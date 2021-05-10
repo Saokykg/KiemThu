@@ -16,7 +16,7 @@ import quanly.Class.twoInt;
  * @author jacky
  */
 public class monhocService {
-    public static twoInt monTinchi(int id) throws SQLException{
+    public static twoInt testMonTinchiDiemTB(int id) throws SQLException{
         int mon=0,tinchi=0;
         float tong=0;
         String sql ="select l.id_mon_hoc, m.ten_mon_hoc, max(d.diem_giua_ki*m.phantram + d.diem_cuoi_ki*(1-m.phantram)) , m.so_tin_chi " +

@@ -22,7 +22,7 @@ import quanly.Class.tbLopHoc;
  */
 public class lophocService {
     public static List<tbLopHoc> getLH(int idhk) throws SQLException, ParseException {
-        String sql = "select id_lop_hoc, ten_mon_hoc, ngay_bd, ngay_bd, hoc_ki " +
+        String sql = "select id_lop_hoc, ten_mon_hoc, ngay_bd, ngay_bd, ca_hoc, l.hoc_ki " +
                     "from monhoc m, lophoc l " +
                     "where m.id_mon_hoc = l.id_mon_hoc and l.hoc_ki = " + idhk ;
         Connection conn = jdbcUtils.getConn();
@@ -30,7 +30,7 @@ public class lophocService {
         ResultSet rs = stm.executeQuery(sql);
         List<tbLopHoc> mh = new ArrayList<>();
         while (rs.next()){
-            tbLopHoc m = new tbLopHoc(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5));
+            tbLopHoc m = new tbLopHoc(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), idhk);
             mh.add(m);
         }
         return mh;
@@ -57,19 +57,18 @@ public class lophocService {
         String sql = "select id_lop_hoc, ten_mon_hoc, ngay_bd, ngay_bd, hoc_ki " +
                     "from monhoc m, lophoc l " +
                     "where m.id_mon_hoc = l.id_mon_hoc and l.hoc_ki = ? ";
-                    
         if (!name.isEmpty())
             sql +=  "and ten_mon_hoc like ? " ;
+        sql+=" order by id_lop_hoc";
         Connection conn = jdbcUtils.getConn();
         PreparedStatement stm = conn.prepareStatement(sql);
         stm.setInt(1, idhk);
         if (!name.isEmpty())
             stm.setString(2, String.format("%%%s%%", name));
-        System.out.println(stm.toString());
         ResultSet rs = stm.executeQuery();
         List<tbLopHoc> mh = new ArrayList<>();
         while (rs.next()){
-            tbLopHoc m = new tbLopHoc(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5));
+            tbLopHoc m = new tbLopHoc(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), idhk);
             mh.add(m);
         }
         return mh;

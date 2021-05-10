@@ -19,7 +19,7 @@ import quanly.Class.tbHocBong;
  * @author jacky
  */
 public class hocbongService {
-    public static List<tbHocBong> createHocBong(boolean c1, boolean c2, boolean c3, int a, int b, int c, float t1, float t2, float t3, int hk) throws SQLException{
+    public static List<tbHocBong> createHocBongSvNhan(boolean c1, boolean c2, boolean c3, int a, int b, int c, float t1, float t2, float t3, int hk) throws SQLException{
         int count =0;
         if (c1) count +=a;
         if (c2) count +=b;
@@ -38,16 +38,16 @@ public class hocbongService {
         List<tbHocBong> tb = new ArrayList<>();
         while(rs.next()){
             tbHocBong hb = null;
-            if (rs.getFloat(3) < 5)
+            if (rs.getFloat(3) < 6)
                 break;
             if (c1 && a>0){
-                hb = new tbHocBong(tb.size()+1, rs.getString(1)+rs.getString(2),"Xuat sac",t1);
+                hb = new tbHocBong(tb.size()+1, rs.getString(1)+" "+rs.getString(2),"Xuat sac",t1);
                 a--;
             }else if (c2 && b>0){
-                hb = new tbHocBong(tb.size()+1, rs.getString(1)+rs.getString(2),"Gioi",t2);
+                hb = new tbHocBong(tb.size()+1, rs.getString(1)+" "+rs.getString(2),"Gioi",t2);
                 b--;
             }else if (c3 && c>0){
-                hb = new tbHocBong(tb.size()+1, rs.getString(1)+rs.getString(2),"Kha",t3);
+                hb = new tbHocBong(tb.size()+1, rs.getString(1)+" "+rs.getString(2),"Kha",t3);
                 c--;
             }
             tb.add(hb);
@@ -64,7 +64,7 @@ public class hocbongService {
             return false;
     }
     public static void insertHocBong(boolean kt1, boolean kt2, boolean kt3, int a, int b, int c, float t1, float t2, float t3, int hk) throws SQLException {
-        String sql= "INSERT INTO `quanlysinhvien`.`hocbong` (`Muc do`, `so_luong`, `tien_thuong`, `hoc_ki`) VALUES (?,?,?,?)";
+        String sql= "INSERT INTO `hocbong` (`Mucdo`, `so_luong`, `tien_thuong`, `hoc_ki`) VALUES (?,?,?,?)";
         Connection conn = jdbcUtils.getConn();
         PreparedStatement stm = conn.prepareStatement(sql);
         if (kt1){
@@ -88,6 +88,15 @@ public class hocbongService {
             stm.setInt(4, hk);
             stm.executeUpdate();
         }
+    }
+    public static int getHocBong(int hk) throws SQLException{
+        String sql= "Select count(*) from hocbong where hoc_ki = ?";
+        Connection conn = jdbcUtils.getConn();
+        PreparedStatement stm = conn.prepareStatement(sql);
+        stm.setInt(1, hk);
+        ResultSet rs = stm.executeQuery();
+        rs.next();
+        return rs.getInt(1);
     }
     
 }

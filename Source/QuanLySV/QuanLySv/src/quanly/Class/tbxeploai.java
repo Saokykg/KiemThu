@@ -11,12 +11,12 @@ package quanly.Class;
  */
 public class tbxeploai {
     
-    private int mssv;
+    private String mssv;
     private String ten;
     private String diem;
     private String xeploai;
     
-    public tbxeploai(int a, String b, String c, String d){
+    public tbxeploai(String a, String b, String c, String d){
         this.mssv =a;
         this.ten = b;
         this.diem = c;
@@ -31,14 +31,14 @@ public class tbxeploai {
     /**
      * @return the mssv
      */
-    public int getMssv() {
+    public String getMssv() {
         return mssv;
     }
 
     /**
      * @param mssv the mssv to set
      */
-    public void setMssv(int mssv) {
+    public void setMssv(String mssv) {
         this.mssv = mssv;
     }
 

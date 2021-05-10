@@ -14,13 +14,13 @@ public class tbDiem {
     private String mssv;
     private String ten;
     private String mon;
-    private String diem_gk;
-    private String diem_ck;
-    private String tile;
+    private float diem_gk;
+    private float diem_ck;
+    private float tile;
     /**
      * @return the mssv
      */
-    public tbDiem(String mssv, String ten, String mon, String gk, String ck, String tile){
+    public tbDiem(String mssv, String ten, String mon, float gk, float ck, float tile){
         this.mssv = mssv;
         this.ten = ten;
         this.mon = mon;
@@ -71,42 +71,42 @@ public class tbDiem {
     /**
      * @return the diem_gk
      */
-    public String getDiem_gk() {
+    public float getDiem_gk() {
         return diem_gk;
     }
 
     /**
      * @param diem_gk the diem_gk to set
      */
-    public void setDiem_gk(String diem_gk) {
+    public void setDiem_gk(float diem_gk) {
         this.diem_gk = diem_gk;
     }
 
     /**
      * @return the diem_ck
      */
-    public String getDiem_ck() {
+    public float getDiem_ck() {
         return diem_ck;
     }
 
     /**
      * @param diem_ck the diem_ck to set
      */
-    public void setDiem_ck(String diem_ck) {
+    public void setDiem_ck(float diem_ck) {
         this.diem_ck = diem_ck;
     }
 
     /**
      * @return the tile
      */
-    public String getTile() {
+    public float getTile() {
         return tile;
     }
 
     /**
      * @param tile the tile to set
      */
-    public void setTile(String tile) {
+    public void setTile(float tile) {
         this.tile = tile;
     }
     
