@@ -116,7 +116,7 @@ public class TraCuuDiemController implements Initializable {
             row.setOnMouseClicked(r ->{
                 tbLopHoc lop = this.tbLop.getSelectionModel().getSelectedItem();
                 try {
-                    this.tbDiem.setItems(FXCollections.observableArrayList(diemService.getDiem(lop.getId())));
+                    this.tbDiem.setItems(FXCollections.observableArrayList(diemService.getDiem(lop.getId(), Login.loginid)));
                     if (tbDiem.getItems().isEmpty()){
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setContentText("Khong co bang diem trong lop nay!!!");

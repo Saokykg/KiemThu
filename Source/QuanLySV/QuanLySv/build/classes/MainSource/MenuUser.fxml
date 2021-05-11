@@ -56,7 +56,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#toInPhieu" prefHeight="183.0" prefWidth="223.0" text="Tra cuu diem" GridPane.rowIndex="1">
+            <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#toTraCuu" prefHeight="183.0" prefWidth="223.0" text="Tra cuu diem" GridPane.rowIndex="1">
                <graphic>
                   <ImageView fitHeight="161.0" fitWidth="224.0" pickOnBounds="true" preserveRatio="true">
                      <image>
