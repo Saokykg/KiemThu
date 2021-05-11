@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="565.0" prefWidth="559.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainSource.MenuAdmin">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="565.0" prefWidth="559.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainSource.MenuAdmin">
    <children>
       <Button fx:id="idback" mnemonicParsing="false" onAction="#logout" text="Logout" />
       <Label alignment="CENTER" prefHeight="62.0" prefWidth="878.0" text="Menu">
@@ -33,7 +33,7 @@
           <RowConstraints maxHeight="259.0" minHeight="0.0" prefHeight="249.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#toQuanLy" prefHeight="219.0" prefWidth="265.0" text="Quan ly sinh vien">
+            <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#toQuanLy" prefHeight="219.0" prefWidth="265.0" text="Quản Lý Sinh Viên">
                <graphic>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -42,7 +42,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#toTraCuu" prefHeight="221.0" prefWidth="266.0" text="Tra cuu diem" GridPane.columnIndex="1">
+            <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#toTraCuu" prefHeight="221.0" prefWidth="266.0" text="Tra Cứu ĐIểm" GridPane.columnIndex="1">
                <graphic>
                   <ImageView fitHeight="161.0" fitWidth="224.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -51,7 +51,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#toBaoCao" prefHeight="230.0" prefWidth="264.0" text="Bao cao" GridPane.rowIndex="1">
+            <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#toBaoCao" prefHeight="230.0" prefWidth="264.0" text="Báo Cáo" GridPane.rowIndex="1">
                <graphic>
                   <ImageView fitHeight="175.0" fitWidth="238.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -60,7 +60,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#toTaiKhoan" prefHeight="229.0" prefWidth="263.0" text="tài khoản cả nhân" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#toTaiKhoan" prefHeight="229.0" prefWidth="263.0" text="Tài Khoản Cá Nhân" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <graphic>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>

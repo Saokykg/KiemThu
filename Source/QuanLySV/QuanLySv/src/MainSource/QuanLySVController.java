@@ -206,7 +206,7 @@ public class QuanLySVController implements Initializable {
             String e = txtQueQuan.getText();
             if (b =="" || c =="" || d =="" || e ==""){
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setContentText("Nhap thieu thong tin!!!");
+                alert.setContentText("Nhập thiếu thông tin!!!");
                 alert.show();
             }
             else{
@@ -216,7 +216,7 @@ public class QuanLySVController implements Initializable {
         }
         else{
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Nam sinh khong hop le!!!");
+            alert.setContentText("Năm sinh không hợp lệ!!!");
             alert.show();
         }
     }

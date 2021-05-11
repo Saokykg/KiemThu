@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainSource.BaoCaoHocPhiController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainSource.BaoCaoHocPhiController">
    <children>
       <Button fx:id="idback" mnemonicParsing="false" onAction="#back" text="back" />
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Báo cáo học phí" textAlignment="CENTER" wrappingWidth="601.1337890625">
@@ -62,17 +62,17 @@
                   <Font size="18.0" />
                </font>
             </Text>
-            <Text fx:id="txtmon" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1">
+            <Text fx:id="txtmon" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1">
                <font>
                   <Font size="18.0" />
                </font>
             </Text>
-            <Text fx:id="txttinchi" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Text fx:id="txttinchi" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font size="18.0" />
                </font>
             </Text>
-            <Text fx:id="txttongtien" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Text fx:id="txttongtien" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font size="18.0" />
                </font>

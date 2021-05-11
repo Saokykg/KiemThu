@@ -77,14 +77,14 @@ public class TaiKhoanController implements Initializable {
         if (this.txtOldPas.getText().equals(acc.getPassword())){
             if (this.txtConfirm.getText().equals(this.txtNewPas.getText())){
                 accountService.updateAccount(Login.loginid, this.txtNewPas.getText());
-                canhcao("Doi password thanh cong!!!");
+                canhcao("Đổi mật khẩu thành công!!!");
             }
             else{
-                canhcao("Mat khau nhap lai khong chinh xac!!!");
+                canhcao("Mật khẩu nhập lại không chính xác!!!");
             }
         }
         else{
-            canhcao("Mat khau khong chinh xac!!!");
+            canhcao("Mật khssur không chính xác!!!");
         }
     }
     public void back(ActionEvent event) throws IOException, SQLException{

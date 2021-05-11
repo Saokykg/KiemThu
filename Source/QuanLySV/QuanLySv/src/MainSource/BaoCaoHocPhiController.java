@@ -97,7 +97,7 @@ public class BaoCaoHocPhiController implements Initializable {
             int hocki = hockiService.getIdhk((int)this.cbhk.getValue(), (int)this.cbnam.getValue());;
             if (hocki == -1){
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setContentText("Hoc ki khong ton tai!!!");
+                alert.setContentText("Học kỳ này không tồn tại!!!");
                 alert.show();
             }
             else{
@@ -124,7 +124,7 @@ public class BaoCaoHocPhiController implements Initializable {
             int hocki = hockiService.getIdhk((int)this.cbhk.getValue(), (int)this.cbnam.getValue());
             if (hocki == -1){
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setContentText("Hoc ki khong ton tai!!!");
+                alert.setContentText("Học kỳ không tồn tại!!!");
                 alert.show();
             }
             else{

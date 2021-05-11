@@ -120,7 +120,7 @@ public class TraCuuDiemController implements Initializable {
                     this.tbDiem.setItems(FXCollections.observableArrayList(diemService.getDiem(lop.getId(), accountService.getAccount(Login.loginid).getLoaitk())));
                     if (tbDiem.getItems().isEmpty()){
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setContentText("Khong co bang diem trong lop nay!!!");
+                        alert.setContentText("KKhông có bảng điểm trong lớp này!!!");
                         alert.show();
                     }
                 } catch (SQLException ex) {
@@ -137,7 +137,7 @@ public class TraCuuDiemController implements Initializable {
             this.cbLopHoc.setDisable(true);
             tbLop.getItems().clear();
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Khong ton tai mon hoc tuong ung!!!");
+            alert.setContentText("Không tồn tại môn học tương ứng!!!");
             alert.show();
         }
         else{

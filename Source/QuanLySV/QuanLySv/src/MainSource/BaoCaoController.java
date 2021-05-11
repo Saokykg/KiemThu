@@ -142,7 +142,7 @@ public class BaoCaoController implements Initializable {
         
         if (hocbongService.checkHk(hocki)){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Da co hoc bong cho ky nay!!!");
+            alert.setContentText("Đã có học bổng trong học kỳ này!!!");
             alert.show();
             this.tbmain.setItems(FXCollections.observableArrayList(tableService.getDsHocBong(hocki)));
         }

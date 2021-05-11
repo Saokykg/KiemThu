@@ -2,14 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="2">
         <file>
-            <url>src/MainSource/Main.java</url>
-            <bookmark id="2">
-                <name/>
-                <line>22</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
             <url>src/MainSource/MenuUserController.java</url>
             <bookmark id="1">
                 <name/>
@@ -17,10 +9,34 @@
                 <key/>
             </bookmark>
         </file>
+        <file>
+            <url>src/MainSource/Main.java</url>
+            <bookmark id="2">
+                <name/>
+                <line>22</line>
+                <key/>
+            </bookmark>
+        </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/jacky/Desktop/Source/KiemThu/Source/QuanLySV/QuanLySv/src/MainSource/Main.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/KiemThu/Source/QuanLySV/QuanLySv/src/MainSource/BaoCaoHocPhiController.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/KiemThu/Source/QuanLySV/QuanLySv/src/MainSource/MenuUserController.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/KiemThu/Source/QuanLySV/QuanLySv/src/MainSource/TraCuuDiemController.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/KiemThu/Source/QuanLySV/QuanLySv/src/Service/jdbcUtils.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/KiemThu/Source/QuanLySV/QuanLySv/src/MainSource/TaiKhoanController.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/KiemThu/Source/QuanLySV/QuanLySv/src/MainSource/SubFunction.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/KiemThu/Source/QuanLySV/QuanLySv/src/MainSource/TableViewSample.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/KiemThu/Source/QuanLySV/QuanLySv/src/MainSource/DangKyController.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/KiemThu/Source/QuanLySV/QuanLySv/src/MainSource/QuanLySVController.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/KiemThu/Source/QuanLySV/QuanLySv/src/MainSource/MenuAdmin.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/KiemThu/Source/QuanLySV/QuanLySv/src/MainSource/Main.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/KiemThu/Source/QuanLySV/QuanLySv/src/MainSource/BaoCaoController.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/KiemThu/Source/QuanLySV/QuanLySv/src/MainSource/ConnectionUtil.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/KiemThu/Source/QuanLySV/QuanLySv/src/MainSource/BaoCao.fxml</file>
+            <file>file:/C:/Users/ASUS/Desktop/KiemThu/Source/QuanLySV/QuanLySv/src/MainSource/ThongTinSinhVienController.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/KiemThu/Source/QuanLySV/QuanLySv/src/MainSource/Login.java</file>
+            <file>file:/C:/Users/ASUS/Desktop/KiemThu/Source/QuanLySV/QuanLySv/src/MainSource/MenuAdmin.fxml</file>
         </group>
     </open-files>
 </project-private>

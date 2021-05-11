@@ -67,7 +67,7 @@ public class DangKyController implements Initializable {
         }
         if (idhk == -1){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Khong co lich dang ky hk nay!!!");
+            alert.setContentText("Không có lịch đăng ký học kỳ này!!!");
             alert.show();
         }
         TableColumn<tbLopHoc, String> monCol = new TableColumn<>("tên môn");
@@ -166,7 +166,7 @@ public class DangKyController implements Initializable {
             alert.setContentText("Dk thanh cong!!!");
         }
         else
-            alert.setContentText("Dk that bai, vui long chon mon hoc can dk!!!");
+            alert.setContentText("Đăng ký thất bại, vui lòng chọn môn cần đăng ký!!!");
         alert.show();
         reset();
     }
