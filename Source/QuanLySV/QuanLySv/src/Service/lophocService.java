@@ -22,7 +22,7 @@ import quanly.Class.tbLopHoc;
  */
 public class lophocService {
     public static List<tbLopHoc> getLH(int idhk) throws SQLException, ParseException {
-        String sql = "select id_lop_hoc, ten_mon_hoc, ngay_bd, ngay_bd, ca_hoc, l.hoc_ki " +
+        String sql = "select id_lop_hoc, ten_mon_hoc, ngay_bd, ngay_kt, ca_hoc, l.hoc_ki " +
                     "from monhoc m, lophoc l " +
                     "where m.id_mon_hoc = l.id_mon_hoc and l.hoc_ki = " + idhk ;
         Connection conn = jdbcUtils.getConn();
@@ -54,7 +54,7 @@ public class lophocService {
         return mh;
     }
     public static List<tbLopHoc> getLH(String name, int idhk) throws SQLException, ParseException {
-        String sql = "select id_lop_hoc, ten_mon_hoc, ngay_bd, ngay_bd, hoc_ki " +
+        String sql = "select id_lop_hoc, ten_mon_hoc, ngay_bd, ngay_kt, hoc_ki " +
                     "from monhoc m, lophoc l " +
                     "where m.id_mon_hoc = l.id_mon_hoc and l.hoc_ki = ? ";
         if (!name.isEmpty())
