@@ -6,6 +6,7 @@
 package MainSource;
 
 import Service.Utils;
+import Service.accountService;
 import Service.diemService;
 import Service.hockiService;
 import Service.lophocService;
@@ -116,7 +117,7 @@ public class TraCuuDiemController implements Initializable {
             row.setOnMouseClicked(r ->{
                 tbLopHoc lop = this.tbLop.getSelectionModel().getSelectedItem();
                 try {
-                    this.tbDiem.setItems(FXCollections.observableArrayList(diemService.getDiem(lop.getId(), Login.loginid)));
+                    this.tbDiem.setItems(FXCollections.observableArrayList(diemService.getDiem(lop.getId(), accountService.getAccount(Login.loginid).getLoaitk())));
                     if (tbDiem.getItems().isEmpty()){
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setContentText("Khong co bang diem trong lop nay!!!");
@@ -155,12 +156,13 @@ public class TraCuuDiemController implements Initializable {
         }
         tbLop.setItems(FXCollections.observableArrayList(kq));
     }
-    public void back(ActionEvent event) throws IOException{
+    public void back(ActionEvent event) throws IOException, SQLException{
         Node node = (Node)event.getSource();
         Stage stage = new Stage();
         stage = (Stage) node.getScene().getWindow();
         stage.close();
-        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("MenuAdmin.FXML")));
+        String before ="Menu"+ accountService.getAccount(Login.loginid).getLoaitk()+".FXML";
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource(before)));
         //dialogStage.setTitle(resultSet.getString("tai_khoan"));
         stage.setScene(scene);
         stage.show();

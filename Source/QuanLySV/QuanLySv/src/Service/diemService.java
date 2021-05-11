@@ -5,6 +5,7 @@
  */
 package Service;
 
+import MainSource.Login;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,19 +22,19 @@ import quanly.Class.twoInt;
  */
 public class diemService {
     
-    public static List<tbDiem> getDiem(int id,int idacc) throws SQLException{
+    public static List<tbDiem> getDiem(int id,String user) throws SQLException{
         String sql = "select mssv,CONCAT_WS(\" \", `ho`, `ten`), ten_mon_hoc , diem_giua_ki, diem_cuoi_ki, phantram " +
                     "from sinhvien sv, diem d, monhoc m, lophoc l " +
                     "where sv.id_sinh_vien = d.id_sinh_vien and m.id_mon_hoc = l.id_mon_hoc and " +
                     "l.id_lop_hoc = d.id_lop_hoc and d.id_lop_hoc = ? ";
-        if (accountService.getAccount(idacc).getLoaitk().equals("USER")){
+        if (user.equals("USER")){
             sql+= " and sv.id_account = ?";
         }
         Connection conn = jdbcUtils.getConn();
         PreparedStatement stm = conn.prepareStatement(sql);
         stm.setInt(1, id);
-        if (accountService.getAccount(idacc).getLoaitk().equals("USER")){
-            stm.setInt(2, idacc);
+        if (user.equals("USER")){
+            stm.setInt(2, Login.loginid);
         }
         ResultSet rs = stm.executeQuery();
         List<tbDiem> lophoc = new ArrayList<>();

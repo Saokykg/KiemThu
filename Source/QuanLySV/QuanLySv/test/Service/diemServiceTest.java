@@ -57,7 +57,7 @@ public class diemServiceTest {
         expResult.add(new tbDiem("n20200001", "test1 admin", "Ly", 10, 10, 0.5F));
         expResult.add(new tbDiem("n20210001", "test2 user", "Ly", 6, 7, 0.5F));
 
-        List<tbDiem> result = diemService.getDiem(idsv);
+        List<tbDiem> result = diemService.getDiem(idsv,"ADMIN");
         for (int i=0; i<result.size(); i++){
             assertEquals(expResult.get(i).getTen(), result.get(i).getTen());
             assertEquals(expResult.get(i).getMssv(), result.get(i).getMssv());
@@ -81,7 +81,7 @@ public class diemServiceTest {
         int idsv = 2;
         String mssv = "n20210001";
         diemService.dangky(lopdk, idsv);
-        List<tbDiem> result = diemService.getDiem(idsv);
+        List<tbDiem> result = diemService.getDiem(idsv, "USER");
         for (int i=0; i<result.size(); i++){
             assertEquals(lopdk.get(i).getMon(), result.get(i).getMon());
             assertEquals(mssv, result.get(i).getMssv());

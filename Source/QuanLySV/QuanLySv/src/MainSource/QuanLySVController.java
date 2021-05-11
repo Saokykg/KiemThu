@@ -91,6 +91,7 @@ public class QuanLySVController implements Initializable {
         
         this.btnCapNhat.setVisible(false);
         this.txtMssv.setDisable(true);
+        this.txtNgaySinh.setEditable(false);
         
         try {
             try {
@@ -138,7 +139,7 @@ public class QuanLySVController implements Initializable {
         this.txtMssv.clear();
         this.txtHo.clear();
         this.txtTen.clear();
-        this.txtNgaySinh.setValue(Utils.todatetime("01/01/1900").toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        this.txtNgaySinh.setValue(Utils.todatetime("01/01/2000").toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         this.txtQueQuan.clear();
         this.btnThem.setDisable(false);
         tbSinhVien.setItems(FXCollections.observableArrayList(sinhvienService.getSinhVien(tenSV.getText())));
