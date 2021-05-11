@@ -1,2 +1,0 @@
-TableViewSample$1
-TableViewSample

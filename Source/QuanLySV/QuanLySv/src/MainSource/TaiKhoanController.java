@@ -74,6 +74,10 @@ public class TaiKhoanController implements Initializable {
     }
     
     public void btnClicked() throws SQLException{
+        if ("".equals(this.txtConfirm.getText())){
+             canhcao("Không Được để trống!!!");
+        }
+        else{
         if (this.txtOldPas.getText().equals(acc.getPassword())){
             if (this.txtConfirm.getText().equals(this.txtNewPas.getText())){
                 accountService.updateAccount(Login.loginid, this.txtNewPas.getText());
@@ -84,9 +88,9 @@ public class TaiKhoanController implements Initializable {
             }
         }
         else{
-            canhcao("Mật khssur không chính xác!!!");
+            canhcao("Mật khẩu không chính xác!!!");
         }
-    }
+    }}
     public void back(ActionEvent event) throws IOException, SQLException{
         Node node = (Node)event.getSource();
         Stage stage = new Stage();
