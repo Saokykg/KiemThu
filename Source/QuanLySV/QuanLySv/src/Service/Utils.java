@@ -59,5 +59,15 @@ public class Utils {
         Statement stm = conn.createStatement();
         stm.execute(sql);
     }
+    public static void resetDB() throws SQLException{
+        resetcounter("sinhvien");
+        resetcounter("lophoc");
+        resetcounter("monhoc");
+        resetcounter("diem");
+        resetcounter("hocbong");
+        resetcounter("account");
+        resetcounter("hocki");
+        resetcounter("sinhvien_nhan_hocbong");
+    }
     
 }

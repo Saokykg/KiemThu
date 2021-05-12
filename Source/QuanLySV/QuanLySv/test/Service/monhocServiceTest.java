@@ -46,8 +46,9 @@ public class monhocServiceTest {
     @Test
     public void testMonTinchiDiemTB() throws Exception {
         System.out.println("==================== monTinchi ====================");
-        int id = 2;
-        twoInt expResult = new twoInt(1,4,5.0F);
+        int id = 1;
+        twoInt expResult = new twoInt(17,62,5.71F);
+//        twoInt expResult = new twoInt(16,58,5.72F); id = 2;
         twoInt result = monhocService.testMonTinchiDiemTB(id);
         assertEquals(expResult.getA(), result.getA());
         assertEquals(expResult.getB(), result.getB());

@@ -160,8 +160,8 @@ public class QuanLySVController implements Initializable {
                         btn.setOnAction((ActionEvent event) -> {
                             Sinhvien sv = getTableView().getItems().get(getIndex());
                             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                            alert.setTitle("Are u sure about that ???");
-                            alert.setContentText("Are u sure about that ???");
+                            alert.setTitle("Are u sure ???");
+                            alert.setContentText("Are u sure???");
                             ButtonType okButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
                             ButtonType cancelButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
                             alert.getButtonTypes().setAll(okButton, cancelButton);
@@ -231,27 +231,31 @@ public class QuanLySVController implements Initializable {
         }
     }
     public void them() throws SQLException, ParseException{
+       Alert alert = new Alert(Alert.AlertType.INFORMATION);
         int check = LocalDateTime.now().getYear() - txtNgaySinh.getValue().getYear();
         if ( check >= 18 && check <60){
             String b = txtHo.getText();
             String c = txtTen.getText();
-            String d = txtNgaySinh.getValue().format(formatter);
-            String e = txtQueQuan.getText();
-            if (b =="" || c =="" || d =="" || e ==""){
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setContentText("Nhập thiếu thông tin!!!");
-                alert.show();
+            if (c.contains(" ")){
+                alert.setContentText("Tên chỉ gồm 1 từ!!!");
             }
             else{
-                sinhvienService.themSV(b,c,d,e);
+                String d = txtNgaySinh.getValue().format(formatter);
+                String e = txtQueQuan.getText();
+                if (b =="" || c =="" || d =="" || e ==""){
+                    alert.setContentText("Nhập thiếu thông tin!!!");
+                }
+                else{
+                    sinhvienService.themSV(b,c,d,e);
+                }
+                alert.setContentText("Thêm thành công!!!");
+                loadSinhVien();
             }
-            loadSinhVien();
         }
         else{
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Năm sinh không hợp lệ!!!");
-            alert.show();
         }
+        alert.show();
     }
     public void back(ActionEvent event) throws IOException{
         Node node = (Node)event.getSource();

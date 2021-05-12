@@ -104,7 +104,7 @@ public class sinhvienService {
         
     }
     public static int getsttSVnam(int now) throws SQLException{
-        String sql = "select count(*) from sinhvien where mssv like \"n" + now +"%\"";
+        String sql = "select count(*) from sinhvien where mssv like \"n" + now % 100 +"%\"";
         Connection conn = jdbcUtils.getConn();
         
         Statement stm = conn.createStatement();
@@ -118,7 +118,7 @@ public class sinhvienService {
         NumberFormat nf = new DecimalFormat("0000");
         LocalDateTime now = LocalDateTime.now();
         int res = getsttSVnam(now.getYear());
-        String a = String.format("n%s%s",now.getYear(),nf.format(res));
+        String a = String.format("%s5105%s",now.getYear() % 100,nf.format(res));
         String sql1 = "INSERT INTO account(tai_khoan, mat_khau, loai_tai_khoan) "+
                       " values(?,?,?)";
         String sql2 =  "INSERT INTO sinhvien (mssv, ho, ten, ngay_sinh, que_quan, id_account) " +
@@ -126,13 +126,13 @@ public class sinhvienService {
         Connection conn = jdbcUtils.getConn();
         
         PreparedStatement stm1 = conn.prepareStatement(sql1);
-        stm1.setString(1, a+c);
+        stm1.setString(1, a+VNCharacterUtils.removeAccent(c));
         stm1.setString(2, a);
         stm1.setString(3, "USER");
         stm1.executeUpdate();
         
         PreparedStatement stm = conn.prepareStatement("select id_account from account where tai_khoan = ?");
-        stm.setString(1, a+c);
+        stm.setString(1, a+VNCharacterUtils.removeAccent(c));
         ResultSet rs = stm.executeQuery();
         rs.next();
         

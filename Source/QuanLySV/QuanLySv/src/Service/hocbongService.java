@@ -88,6 +88,44 @@ public class hocbongService {
             stm.setInt(4, hk);
             stm.executeUpdate();
         }
+        int count =0;
+        if (kt1) count +=a;
+        if (kt2) count +=b;
+        if (kt3) count +=c;
+        String sql2 = "select s.id_sinh_vien, avg(diem_giua_ki*m.phantram + diem_cuoi_ki*(1-m.phantram)) " +
+                    "from sinhvien s, diem d, lophoc l, monhoc m " +
+                    "where s.id_sinh_vien = d.id_sinh_vien and l.id_lop_hoc = d.id_lop_hoc and l.id_mon_hoc = m.id_mon_hoc and l.hoc_ki = ? " +
+                    "group by s.id_sinh_vien " +
+                    "order by 2 desc " +
+                    "limit ?";
+        Statement st = conn.createStatement();
+        ResultSet stt = st.executeQuery("select count(*) from hocbong");
+        stt.next();
+        int tmp = stt.getInt(1)-2;
+        PreparedStatement stm2 = conn.prepareStatement(sql2);
+        stm2.setInt(1, hk);
+        stm2.setInt(2, count);
+        ResultSet rs = stm2.executeQuery();
+        PreparedStatement stmhb = conn.prepareStatement("INSERT INTO `sinhvien_nhan_hocbong` (`id_sinh_vien`, `id_hoc_bong`) VALUES (?, ?)");
+        List<tbHocBong> tb = new ArrayList<>();
+        while(rs.next()){
+            tbHocBong hb = null;
+            if (rs.getFloat(2) < 6)
+                break;
+            if (kt1 && a>0){
+                stmhb.setInt(1, rs.getInt(1));
+                stmhb.setInt(2, tmp);
+                stmhb.executeUpdate();
+            }else if (kt2 && b>0){
+                stmhb.setInt(1, rs.getInt(1));
+                stmhb.setInt(2, tmp+1);
+                stmhb.executeUpdate();
+            }else if (kt3 && c>0){
+                stmhb.setInt(1, rs.getInt(1));
+                stmhb.setInt(2, tmp+2);
+                stmhb.executeUpdate();
+            }
+        }
     }
     public static int getHocBong(int hk) throws SQLException{
         String sql= "Select count(*) from hocbong where hoc_ki = ?";

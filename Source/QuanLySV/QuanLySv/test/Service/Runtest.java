@@ -15,6 +15,8 @@ import org.junit.runner.notification.Failure;
  */
 public class Runtest {
     public static void main(String[] args){
+        int  a =2021;
+        System.out.println(a%100);
         Result rs = JUnitCore.runClasses(TestSuite.class);
         
         for (Failure fl : rs.getFailures()){

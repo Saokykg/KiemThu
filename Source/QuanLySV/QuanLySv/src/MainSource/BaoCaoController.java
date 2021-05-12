@@ -8,6 +8,7 @@ package MainSource;
 import Service.Utils;
 import Service.hocbongService;
 import Service.hockiService;
+import Service.svhocbongService;
 import Service.tableService;
 import com.mysql.cj.xdevapi.Column;
 import java.io.IOException;
@@ -265,6 +266,11 @@ public class BaoCaoController implements Initializable {
                 hocbongService.insertHocBong(check1.isSelected(),check2.isSelected(),check3.isSelected(),
                         (int)cb1.getValue(), (int)cb2.getValue(), (int)cb3.getValue(),
                         Float.parseFloat(t1.getText()),Float.parseFloat(t2.getText()),Float.parseFloat(t3.getText()), hocki);
+                svhocbongService.themSVnhanHB(this.tbmain.getItems());
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Thanh cong!!!");
+                alert.showAndWait();
+                stage.close();
             } catch (SQLException ex) {
                 Logger.getLogger(BaoCaoController.class.getName()).log(Level.SEVERE, null, ex);
             }

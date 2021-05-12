@@ -7,6 +7,7 @@ package Service;
 
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -68,13 +69,13 @@ public class sinhvienServiceTest {
     /**
      * Test of getthu method, of class sinhvienService.
      */
-    @Test
+    @Test   
     public void test002Getthu() {
         System.out.println("============== lay thu cua ngay ==============");
         Date date = new Date();
-        String expResult = "Sunday";
+        String expResult = LocalDate.now().getDayOfWeek().toString();
         String result = sinhvienService.getthu(date);
-        assertEquals(expResult, result);
+        assertEquals(expResult.toUpperCase(), result.toUpperCase());
         // TODO review the generated test code and remove the default call to fail.
     }
 
@@ -84,10 +85,12 @@ public class sinhvienServiceTest {
     @Test
     public void test003GetSinhVien_String() throws Exception {
         System.out.println("==============  getSinhVien ============== ");
-        String key = "test";
+        String key = "";
         List<Sinhvien> expResult = new ArrayList<>();
-        expResult.add(new Sinhvien(1, "n20200001", "test1", "admin", "01/01/2000", "quequan1", 1));
-        expResult.add(new Sinhvien(2, "n20210001", "test2", "user", "02/02/1999", "quequan2", 2));
+        expResult.add(new Sinhvien(1, "1851050001", "Đào Văn", "Nguyên", "17/11/2000", "Đắk Nông", 1));
+        expResult.add(new Sinhvien(2, "1851050002", "Phạm Dương", "Hòa", "21/4/2000", "Hà Nội", 2));
+        expResult.add(new Sinhvien(3, "1851050003", "Nguyễn Trần Công", "Lập", "12/3/2000", "Quy Nhơn", 3));
+        expResult.add(new Sinhvien(4, "1851050004", "Nguyễn Minh", "Trí", "31/5/1999", "TP Hồ Chí Minh", 4));
         List<Sinhvien> result = sinhvienService.getSinhVien(key);
         Field[] fields = Sinhvien.class.getDeclaredFields();
         for (int k=0; k < expResult.size(); k++){
@@ -103,7 +106,7 @@ public class sinhvienServiceTest {
     @Test
     public void test007DelSinhVien() throws Exception {
         System.out.println("============= delSinhVien =============");
-        Sinhvien s = sinhvienService.getSinhVien(3);
+        Sinhvien s = sinhvienService.getSinhVien(5);
         sinhvienService.delSinhVien(s.getId(), s.getId_acc());
         // TODO review the generated test code and remove the default call to fail.
     }
@@ -114,8 +117,8 @@ public class sinhvienServiceTest {
     @Test
     public void test006UpdateSV() throws Exception {
         System.out.println("============= updateSV =============");
-        Sinhvien sv = sinhvienService.getSinhVien(3);
-        sv.setTen("updateTest");
+        Sinhvien sv = sinhvienService.getSinhVien(5);
+        sv.setTen("test update name");
         sinhvienService.updateSV(sv);
         // TODO review the generated test code and remove the default call to fail.
     }
@@ -126,10 +129,10 @@ public class sinhvienServiceTest {
     @Test
     public void test008GetsttSVnam() throws Exception {
         System.out.println("=============== getsttSVnam ===============");
-        int now = 2021;
-        int expResult = 2;
+        int now = 2021 % 100;
+        int expResult = 0;
         int result = sinhvienService.getsttSVnam(now);
-        assertEquals(expResult, result);
+        assertEquals(expResult, result-1);
         // TODO review the generated test code and remove the default call to fail.
     }
 
@@ -154,7 +157,7 @@ public class sinhvienServiceTest {
     public void test004GetSinhVien_int() throws Exception {
         System.out.println("============= getSinhVien ============");
         int id = 1;
-        Sinhvien expResult = new Sinhvien(1, "n20200001", "test1", "admin", "01/01/2000", "quequan1", 1);
+        Sinhvien expResult = new Sinhvien(1, "1851050001", "Đào Văn", "Nguyên", "17/11/2000", "Đắk Nông", 1);
         Sinhvien result = sinhvienService.getSinhVien(id);
         assertEquals(expResult.getId(), result.getId());
         assertEquals(expResult.getMssv(), result.getMssv());
@@ -172,8 +175,8 @@ public class sinhvienServiceTest {
     @Test
     public void test009GetSinhVienByAcc() throws Exception {
         System.out.println("============= getSinhVienByAcc ===============");
-        int idacc = 1;
-        Sinhvien expResult = new Sinhvien(1, "n20200001", "test1", "admin", "01/01/2000", "quequan1", 1);
+        int idacc = 2;
+        Sinhvien expResult = new Sinhvien(2, "1851050002", "Phạm Dương", "Hòa", "21/4/2000", "Hà Nội", 2);
         Sinhvien result = sinhvienService.getSinhVienByAcc(idacc);
         assertEquals(expResult.getId(), result.getId());
         assertEquals(expResult.getMssv(), result.getMssv());

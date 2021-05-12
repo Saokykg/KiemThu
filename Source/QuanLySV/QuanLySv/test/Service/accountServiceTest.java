@@ -56,8 +56,8 @@ public class accountServiceTest extends Account {
     @Parameterized.Parameters
     public static Collection testData() {
         return Arrays.asList(new Object[][] {
-            {1111,"testadmin","admin","ADMIN"}, 
-            {2222,"testuser","user","USER"}
+            {1,"1851050001Nguyen","1","USER"}, 
+            {5,"admin","1","ADMIN"}
         });
     }
     

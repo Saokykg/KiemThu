@@ -33,5 +33,7 @@ public class svhocbongService {
         }
         return hb;
     }
-    
+    public static void themSVnhanHB(List<tbHocBong> tb){
+        
+    }
 }
