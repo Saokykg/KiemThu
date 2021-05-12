@@ -7,6 +7,7 @@ package MainSource;
 
 import Service.Utils;
 import Service.diemService;
+import static Service.diemService.checkSLdk;
 import Service.hockiService;
 import Service.lophocService;
 import java.io.IOException;
@@ -160,30 +161,41 @@ public class DangKyController implements Initializable {
     }    
     public void dangky() throws SQLException, ParseException{
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        if (tbDangKy.getItems().size()!=0){
-            boolean kt = true;
-            List <tbLopHoc> lh = tbDangKy.getItems();
-            for (int i=0; i<lh.size()-1;i++){
-                tbLopHoc lopi = lh.get(i);
-                for(int j=i+1;j<lh.size();j++){
-                    tbLopHoc lopj = lh.get(j);
-                    if (Utils.todatetime(lopi.getBd()).before(Utils.todatetime(lopj.getKt())) && lopi.getThu().equals(lopj.getThu()) && lopi.getCa() == lopj.getCa()){
-                        alert.setContentText("Dk mon bi trung thoi khoa bieu!!!\n(" + lopi.getMon() +", "+ lopj.getMon()+")");
-                        kt=false;
+        try {
+            if (tbDangKy.getItems().size() != 0) {
+                boolean kt = true;
+                List<tbLopHoc> lh = tbDangKy.getItems();
+                for (int i = 0; i < lh.size(); i++) {
+                    if (checkSLdk(lh.get(i).getId())) {
+                        alert.setContentText("Mon hoc " + lh.get(i).getMon() + " da vuot qua so luong dk !!!!");
+                    }
+                }
+                for (int i = 0; i < lh.size() - 1; i++) {
+                    tbLopHoc lopi = lh.get(i);
+                    for (int j = i + 1; j < lh.size(); j++) {
+                        tbLopHoc lopj = lh.get(j);
+                        if (Utils.todatetime(lopi.getBd()).before(Utils.todatetime(lopj.getKt())) && lopi.getThu().equals(lopj.getThu()) && lopi.getCa() == lopj.getCa()) {
+                            alert.setContentText("Dk mon bi trung thoi khoa bieu!!!\n(" + lopi.getMon() + ", " + lopj.getMon() + ")");
+                            kt = false;
+                            break;
+                        }
+                    }
+                    if (!kt) {
                         break;
                     }
                 }
-                if (!kt) break;
+                if (kt) {
+                    List<tbLopHoc> dk = this.tbDangKy.getItems();
+                    diemService.dangky(dk, Login.loginid);
+                    alert.setContentText("Dk thanh cong!!!");
+                    reset();
+                }
+            } else {
+                alert.setContentText("Đăng ký thất bại, vui lòng chọn môn cần đăng ký!!!");
             }
-            if (kt){
-                List<tbLopHoc> dk = this.tbDangKy.getItems();
-                diemService.dangky(dk, Login.loginid);
-                alert.setContentText("Dk thanh cong!!!");
-                reset();
-            }
-        }
-        else
-            alert.setContentText("Đăng ký thất bại, vui lòng chọn môn cần đăng ký!!!");
+        } catch (Exception ex){
+            alert.setContentText("Unknow error!!!");
+        } 
         alert.show();
     }
     public void reset() throws SQLException, ParseException{

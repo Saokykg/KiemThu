@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import quanly.Class.tbDiem;
@@ -72,6 +73,25 @@ public class diemService {
             stm.setInt(2, idsv);
             stm.executeUpdate();
         }
+    }
+    
+    public static boolean checkSLdk(int idlop) throws SQLException{
+        String sql = "Select count(*) from diem where id_lop_hoc = ?";
+        Connection conn = jdbcUtils.getConn();
+        PreparedStatement stm = conn.prepareStatement(sql);
+        stm.setInt(1, idlop);
+        ResultSet rs = stm.executeQuery();
+        rs.next();
+        String sql1 = "select gioi_han_hoc_vien from lophoc l, monhoc m "
+                + "where l.id_mon_hoc = m.id_mon_hoc and l.id_lop_hoc = ?";
+        PreparedStatement stm2 = conn.prepareStatement(sql);
+        stm2.setInt(1, idlop);
+        ResultSet rs2 = stm2.executeQuery();
+        rs2.next();
+        if (rs2.getInt(1) <= rs.getInt(1))
+            return true;
+        else
+            return false;
     }
 
 }
