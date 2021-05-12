@@ -28,6 +28,8 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -157,11 +159,24 @@ public class QuanLySVController implements Initializable {
                     {
                         btn.setOnAction((ActionEvent event) -> {
                             Sinhvien sv = getTableView().getItems().get(getIndex());
-                            try {
-                                sinhvienService.delSinhVien(sv.getId(), sv.getId_acc());
-                            } catch (SQLException ex) {
-                                Logger.getLogger(QuanLySVController.class.getName()).log(Level.SEVERE, null, ex);
-                            }
+                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                            alert.setTitle("Are u sure about that ???");
+                            alert.setContentText("Are u sure about that ???");
+                            ButtonType okButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+                            ButtonType cancelButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+                            alert.getButtonTypes().setAll(okButton, cancelButton);
+                            alert.showAndWait().ifPresent(type -> {
+                                    if (type == okButton) {
+                                        try {
+                                            sinhvienService.delSinhVien(sv.getId(), sv.getId_acc());
+                                        } catch (SQLException ex) {
+                                            Logger.getLogger(QuanLySVController.class.getName()).log(Level.SEVERE, null, ex);
+                                        }
+                                    } else if (type == ButtonType.NO) {
+                                        
+                                    }
+                            });
+                            
                             tbSinhVien.getItems().remove(sv);
                         });
                     }
@@ -186,16 +201,34 @@ public class QuanLySVController implements Initializable {
     }
     public void  capnhat() throws SQLException, ParseException{
         Sinhvien sv = this.tbSinhVien.getSelectionModel().getSelectedItem();
-        
-        sv.setMssv(txtMssv.getText());
-        sv.setHo(txtHo.getText());
-        sv.setTen(txtTen.getText());
-        sv.setNgaysinh(txtNgaySinh.getValue().format(formatter));
-        sv.setQuequan(txtQueQuan.getText());
-        
-        sinhvienService.updateSV(sv);
-        this.tbSinhVien.getItems().clear();
-        loadSinhVien();
+        int check = LocalDateTime.now().getYear() - txtNgaySinh.getValue().getYear();
+        if ( check >= 18 && check <60){
+            String b = txtHo.getText();
+            String c = txtTen.getText();
+            String d = txtNgaySinh.getValue().format(formatter);
+            String e = txtQueQuan.getText();
+            if (b =="" || c =="" || d =="" || e ==""){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("Nhập thiếu thông tin!!!");
+                alert.show();
+            }
+            else{
+            sv.setMssv(txtMssv.getText());
+            sv.setHo(txtHo.getText());
+            sv.setTen(txtTen.getText());
+            sv.setNgaysinh(txtNgaySinh.getValue().format(formatter));
+            sv.setQuequan(txtQueQuan.getText());
+            sinhvienService.updateSV(sv);
+            this.tbSinhVien.getItems().clear();
+                sinhvienService.themSV(b,c,d,e);
+            }
+            loadSinhVien();
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Năm sinh không hợp lệ!!!");
+            alert.show();
+        }
     }
     public void them() throws SQLException, ParseException{
         int check = LocalDateTime.now().getYear() - txtNgaySinh.getValue().getYear();

@@ -59,6 +59,12 @@ public class sinhvienService {
     }
     public static void delSinhVien(int id, int id_acc) throws SQLException {
         Connection conn = jdbcUtils.getConn();
+        
+        String sql3 = "Delete from diem where id_sinh_vien = ?";
+        PreparedStatement stm3 = conn.prepareStatement(sql3);
+        stm3.setInt(1, id);
+        stm3.executeUpdate();
+        
         String sql = "Delete from SinhVien where id_sinh_vien = ?";
         PreparedStatement stm = conn.prepareStatement(sql);
         stm.setInt(1, id);
@@ -69,6 +75,8 @@ public class sinhvienService {
         stm2.setInt(1, id_acc);
         stm2.executeUpdate();
         
+        
+        resetcounter("diem");
         resetcounter("sinhvien");
         resetcounter("account");
     }
