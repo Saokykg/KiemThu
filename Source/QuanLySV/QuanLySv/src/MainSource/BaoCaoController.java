@@ -146,6 +146,7 @@ public class BaoCaoController implements Initializable {
             alert.setContentText("Đã có học bổng trong học kỳ này!!!");
             alert.show();
             this.tbmain.setItems(FXCollections.observableArrayList(tableService.getDsHocBong(hocki)));
+            this.tbmain.setItems(FXCollections.observableArrayList(svhocbongService.getSVnhanHB(hocki)));
         }
         else{
         List<Integer> a = new ArrayList<>();
@@ -266,7 +267,6 @@ public class BaoCaoController implements Initializable {
                 hocbongService.insertHocBong(check1.isSelected(),check2.isSelected(),check3.isSelected(),
                         (int)cb1.getValue(), (int)cb2.getValue(), (int)cb3.getValue(),
                         Float.parseFloat(t1.getText()),Float.parseFloat(t2.getText()),Float.parseFloat(t3.getText()), hocki);
-                svhocbongService.themSVnhanHB(this.tbmain.getItems());
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setContentText("Thanh cong!!!");
                 alert.showAndWait();

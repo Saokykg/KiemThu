@@ -66,12 +66,13 @@ public class lophocServiceTest {
     @Test
     public void test002GetLH_int_int() throws Exception {
         System.out.println("================= getLH theo sinh vien dk va hk =================");
-        int idhk = 1;
+        int idhk = 3;
         int idacc = 2;
-        int idsv = sinhvienService.getSinhVienByAcc(idacc).getId();
         List<tbLopHoc> expResult = new ArrayList<>();
-        expResult.add(new tbLopHoc(1, "Hoa", 4, 1000000.0F));
-        expResult.add(new tbLopHoc(3, "Ly", 4, 3000000.0F));
+        expResult.add(new tbLopHoc(13, "Phân tích thiết kế hệ thống", 4, 1560000.0F));
+        expResult.add(new tbLopHoc(14, "Đường lối CM của Đảng CSVN", 2, 980000.0F));
+        expResult.add(new tbLopHoc(15, "An toàn hệ thống thông tin", 4, 2200000.0F));
+
         List<tbLopHoc> result = lophocService.getLH(idhk, idacc);
         for (int i =0; i<result.size(); i++){
             assertEquals(expResult.get(i).getId(),result.get(i).getId());
@@ -88,12 +89,12 @@ public class lophocServiceTest {
     @Test
     public void test003GetLH_String_int() throws Exception {
         System.out.println("================== getLH theo ten mon va hk  ==================");
-        String name = "oa";
-        int idhk = 1;
+        String name = "thong";
+        int idhk = 3;
         List<tbLopHoc> expResult = new ArrayList<>();
-        expResult.add(new tbLopHoc(1, "Hoa", 4, 1000000.0F));
-        expResult.add(new tbLopHoc(2, "Toan", 4, 2000000.0F));
-        expResult.add(new tbLopHoc(4, "Toan", 4, 2000000.0F));
+        expResult.add(new tbLopHoc(13, "Phân tích thiết kế hệ thống", 4, 1560000.0F));
+        expResult.add(new tbLopHoc(15, "An toàn hệ thống thông tin", 4, 2200000.0F));
+
         List<tbLopHoc> result = lophocService.getLH(name, idhk);
         for (int i =0; i<result.size(); i++){
             assertEquals(expResult.get(i).getId(),result.get(i).getId());

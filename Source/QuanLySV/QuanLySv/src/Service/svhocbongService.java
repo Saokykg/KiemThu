@@ -33,7 +33,21 @@ public class svhocbongService {
         }
         return hb;
     }
-    public static void themSVnhanHB(List<tbHocBong> tb){
-        
+    public static List<tbHocBong> getSVnhanHB(int hk) throws SQLException{
+        String sql = "select sv.ho, sv.ten, mucdo, tien_thuong " +
+                "from hocki hk, sinhvien_nhan_hocbong s, hocbong hb , sinhvien sv " +
+                "where hk.id_hoc_ki = hb.hoc_ki and s.id_hoc_bong = hb.id_hoc_bong and sv.id_sinh_vien = s.id_sinh_vien and hb.hoc_ki = ? ";
+        int i=1;
+        Connection conn = jdbcUtils.getConn();
+        PreparedStatement stm = conn.prepareStatement(sql);
+        stm.setInt(1, hk);
+        ResultSet rs = stm.executeQuery();
+        List<tbHocBong> hb = new ArrayList<>();
+        while (rs.next()){
+            tbHocBong h = new tbHocBong(i, rs.getString(1)+" "+rs.getString(2),rs.getString(3),rs.getFloat(4));
+            i++;
+            hb.add(h);
+        }
+        return hb;
     }
 }

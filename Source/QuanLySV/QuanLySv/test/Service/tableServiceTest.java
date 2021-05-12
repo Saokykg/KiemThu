@@ -54,10 +54,12 @@ public class tableServiceTest {
     public void test002Getbaocaohocphi() throws Exception {
         System.out.println("================ getbaocaohocphi n = nam k = ki ================");
         int n = 2020;
-        int k = 0;
+        int k = 3;
         List<tbbchocphi> expResult = new ArrayList<>();
-        expResult.add(new tbbchocphi(1,"Hoa",1,1000000.0F*1));
-        expResult.add(new tbbchocphi(3,"Ly",2,3000000.0F*2));
+        expResult.add(new tbbchocphi(13,"Phân tích thiết kế hệ thống",4,6240000.0F));
+        expResult.add(new tbbchocphi(14,"Đường lối CM của Đảng CSVN",4,3920000.0F));
+        expResult.add(new tbbchocphi(15,"An toàn hệ thống thông tin",4,8800000.0F));
+        
         List<tbbchocphi> result = tableService.getbaocaohocphi(n, k);
         for (int i =0; i<result.size(); i++){
             assertEquals(expResult.get(i).getMalop(), result.get(i).getMalop());
@@ -99,8 +101,10 @@ public class tableServiceTest {
         int n = 2020;
         int k = 0;
         List<tbxeploai> expResult = new ArrayList<>();
-        expResult.add(new tbxeploai("n20200001", "test1 admin", String.format("%.2f",10.0F), "Giỏi"));
-        expResult.add(new tbxeploai("n20210001", "test2 user", String.format("%.2f",5.75F), "Trung bình"));
+        expResult.add(new tbxeploai("1851050001", "Đào Văn Nguyên", String.format("%.2f",6.63F), "Trung bình"));
+        expResult.add(new tbxeploai("1851050002", "Phạm Dương Hòa", String.format("%.2f",7.44F), "Khá"));
+        expResult.add(new tbxeploai("1851050003", "Nguyễn Trần Công Lập", String.format("%.2f",7.40F), "Khá"));
+        expResult.add(new tbxeploai("1851050004", "Nguyễn Minh Trí", String.format("%.2f",6.69F), "Trung bình"));
         List<tbxeploai> result = tableService.getbaocaoxeploai(n, k);
         for (int i =0; i<result.size(); i++){
             assertEquals(expResult.get(i).getMssv(), result.get(i).getMssv());

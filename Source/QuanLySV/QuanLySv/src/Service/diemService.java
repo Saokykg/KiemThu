@@ -45,6 +45,24 @@ public class diemService {
         }
         return lophoc;
     }
+     public static List<tbDiem> getDiemSV(int id,int hk) throws SQLException{
+        String sql = "select mssv,CONCAT_WS(\" \", `ho`, `ten`), ten_mon_hoc , diem_giua_ki, diem_cuoi_ki, phantram " +
+                    "from sinhvien sv, diem d, monhoc m, lophoc l " +
+                    "where sv.id_sinh_vien = d.id_sinh_vien and m.id_mon_hoc = l.id_mon_hoc and l.hoc_ki = ? and " +
+                    "l.id_lop_hoc = d.id_lop_hoc and d.id_lop_hoc = ? ";
+        Connection conn = jdbcUtils.getConn();
+        PreparedStatement stm = conn.prepareStatement(sql);
+        stm.setInt(1, hk);
+        stm.setInt(2, id);
+        ResultSet rs = stm.executeQuery();
+        List<tbDiem> lophoc = new ArrayList<>();
+        while(rs.next()){
+            tbDiem lop = new tbDiem(rs.getString(1), rs.getString(2), rs.getString(3), rs.getFloat(4), 
+                                rs.getFloat(5), rs.getFloat(6));
+            lophoc.add(lop);
+        }
+        return lophoc;
+    }
     public static void dangky(List<tbLopHoc> lopdk, int idsv) throws SQLException{
         String sql= "insert into diem(id_lop_hoc, id_sinh_vien) values(?,?)";
         Connection conn = jdbcUtils.getConn();

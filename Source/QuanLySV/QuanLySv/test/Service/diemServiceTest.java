@@ -52,12 +52,14 @@ public class diemServiceTest {
     @Test
     public void test001GetDiem() throws Exception {
         System.out.println("================ get bang diem lop ================");
-        int idsv = 3;
+        int idlop = 10;
         List<tbDiem> expResult = new ArrayList<>();
-        expResult.add(new tbDiem("n20200001", "test1 admin", "Ly", 10, 10, 0.5F));
-        expResult.add(new tbDiem("n20210001", "test2 user", "Ly", 6, 7, 0.5F));
+        expResult.add(new tbDiem("1851050001", "Đào Văn Nguyên", "Cấu trúc dữ liệu và giải thuật", 7.0F, 7.0F, 0.5F));
+        expResult.add(new tbDiem("1851050002", "Phạm Dương Hòa", "Cấu trúc dữ liệu và giải thuật", 8.0F, 8.0F, 0.5F));
+        expResult.add(new tbDiem("1851050003", "Nguyễn Trần Công Lập", "Cấu trúc dữ liệu và giải thuật", 7.0F, 9.0F, 0.5F));
+        expResult.add(new tbDiem("1851050004", "Nguyễn Minh Trí", "Cấu trúc dữ liệu và giải thuật", 6.0F, 7.0F, 0.5F));
 
-        List<tbDiem> result = diemService.getDiem(idsv,"ADMIN");
+        List<tbDiem> result = diemService.getDiem(idlop,"ADMIN");
         for (int i=0; i<result.size(); i++){
             assertEquals(expResult.get(i).getTen(), result.get(i).getTen());
             assertEquals(expResult.get(i).getMssv(), result.get(i).getMssv());
@@ -76,12 +78,11 @@ public class diemServiceTest {
     public void test002Dangky() throws Exception {
         System.out.println("================ dangky ================");
         List<tbLopHoc> lopdk = new ArrayList<>();
-        lopdk.add(new tbLopHoc(4,"Toan"));
-        lopdk.add(new tbLopHoc(5,"Ly"));
+        lopdk.add(new tbLopHoc(21,"Toan"));
         int idsv = 2;
-        String mssv = "n20210001";
+        String mssv = "1851050002";
         diemService.dangky(lopdk, idsv);
-        List<tbDiem> result = diemService.getDiem(idsv, "USER");
+        List<tbDiem> result = diemService.getDiemSV(idsv, 7);
         for (int i=0; i<result.size(); i++){
             assertEquals(lopdk.get(i).getMon(), result.get(i).getMon());
             assertEquals(mssv, result.get(i).getMssv());

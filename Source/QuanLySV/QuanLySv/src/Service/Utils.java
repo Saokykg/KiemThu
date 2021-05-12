@@ -55,6 +55,7 @@ public class Utils {
     }
     public static void resetcounter(String name) throws SQLException{
         String sql = "ALTER TABLE " + name + " AUTO_INCREMENT = 1";
+        System.out.println(sql);
         Connection conn = jdbcUtils.getConn();
         Statement stm = conn.createStatement();
         stm.execute(sql);
