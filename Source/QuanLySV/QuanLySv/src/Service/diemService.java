@@ -74,21 +74,26 @@ public class diemService {
             stm.executeUpdate();
         }
     }
-    
+    //m maf sua gi phai build lai da
     public static boolean checkSLdk(int idlop) throws SQLException{
-        String sql = "Select count(*) from diem where id_lop_hoc = ?";
+        String sql = "Select count(*) from diem where id_lop_hoc = ? group by id_lop_hoc";
         Connection conn = jdbcUtils.getConn();
         PreparedStatement stm = conn.prepareStatement(sql);
         stm.setInt(1, idlop);
         ResultSet rs = stm.executeQuery();
-        rs.next();
-        String sql1 = "select gioi_han_hoc_vien from lophoc l, monhoc m "
+        int b;
+        if (rs.next())
+            b = rs.getInt(1);
+        else
+            b = 0;
+        String sql2 = "select gioi_han_hoc_vien from lophoc l, monhoc m "
                 + "where l.id_mon_hoc = m.id_mon_hoc and l.id_lop_hoc = ?";
-        PreparedStatement stm2 = conn.prepareStatement(sql);
+        PreparedStatement stm2 = conn.prepareStatement(sql2);
         stm2.setInt(1, idlop);
         ResultSet rs2 = stm2.executeQuery();
         rs2.next();
-        if (rs2.getInt(1) <= rs.getInt(1))
+        System.out.println(b+" "+rs2.getInt(1));
+        if (rs2.getInt(1) <= b)
             return true;
         else
             return false;

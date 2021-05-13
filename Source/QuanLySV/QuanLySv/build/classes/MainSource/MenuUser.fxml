@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="477.0" prefWidth="712.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainSource.MenuUserController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="477.0" prefWidth="712.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainSource.MenuUserController">
    <children>
       <Button fx:id="idback" mnemonicParsing="false" onAction="#logout" text="Logout" />
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Menu" textAlignment="CENTER" wrappingWidth="663.029296875">
@@ -33,7 +33,7 @@
                <graphic>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="file:/C:/Users/jacky/Desktop/Source/KiemThu/Source/QuanLySV/QuanLySv/data/img/settings.png" />
+                        <Image url="file:/C:/Users/asus/Desktop/KiemThu/Source/QuanLySV/QuanLySv/data/img/settings.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -42,7 +42,7 @@
                <graphic>
                   <ImageView fitHeight="161.0" fitWidth="224.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="file:/C:/Users/jacky/Desktop/Source/KiemThu/Source/QuanLySV/QuanLySv/data/img/userinfo.png" />
+                        <Image url="file:/C:/Users/asus/Desktop/KiemThu/Source/QuanLySV/QuanLySv/data/img/userinfo.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -51,7 +51,7 @@
                <graphic>
                   <ImageView fitHeight="161.0" fitWidth="224.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="file:/C:/Users/jacky/Desktop/Source/KiemThu/Source/QuanLySV/QuanLySv/data/img/assigned.png" />
+                        <Image url="file:/C:/Users/asus/Desktop/KiemThu/Source/QuanLySV/QuanLySv/data/img/assigned.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -60,7 +60,7 @@
                <graphic>
                   <ImageView fitHeight="161.0" fitWidth="224.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="file:/C:/Users/jacky/Desktop/Source/KiemThu/Source/QuanLySV/QuanLySv/data/img/user.png" />
+                        <Image url="file:/C:/Users/asus/Desktop/KiemThu/Source/QuanLySV/QuanLySv/data/img/user.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -69,7 +69,7 @@
                <graphic>
                   <ImageView fitHeight="161.0" fitWidth="224.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="file:/C:/Users/jacky/Desktop/Source/KiemThu/Source/QuanLySV/QuanLySv/data/img/printer.png" />
+                        <Image url="file:/C:/Users/asus/Desktop/KiemThu/Source/QuanLySV/QuanLySv/data/img/printer.png" />
                      </image>
                   </ImageView>
                </graphic>

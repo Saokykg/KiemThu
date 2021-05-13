@@ -200,35 +200,38 @@ public class QuanLySVController implements Initializable {
         tbSinhVien.getColumns().add(colBtn);
     }
     public void  capnhat() throws SQLException, ParseException{
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         Sinhvien sv = this.tbSinhVien.getSelectionModel().getSelectedItem();
         int check = LocalDateTime.now().getYear() - txtNgaySinh.getValue().getYear();
         if ( check >= 18 && check <60){
             String b = txtHo.getText();
             String c = txtTen.getText();
-            String d = txtNgaySinh.getValue().format(formatter);
-            String e = txtQueQuan.getText();
-            if (b =="" || c =="" || d =="" || e ==""){
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setContentText("Nhập thiếu thông tin!!!");
-                alert.show();
+            if (c.contains(" ")){
+                alert.setContentText("Tên chỉ gồm 1 từ!!!");
             }
             else{
-            sv.setMssv(txtMssv.getText());
-            sv.setHo(txtHo.getText());
-            sv.setTen(txtTen.getText());
-            sv.setNgaysinh(txtNgaySinh.getValue().format(formatter));
-            sv.setQuequan(txtQueQuan.getText());
-            sinhvienService.updateSV(sv);
-            this.tbSinhVien.getItems().clear();
-                sinhvienService.themSV(b,c,d,e);
+                String d = txtNgaySinh.getValue().format(formatter);
+                String e = txtQueQuan.getText();
+                if (b =="" || c =="" || d =="" || e ==""){
+                    alert.setContentText("Nhập thiếu thông tin!!!");
+                }
+                else{
+                    sv.setMssv(txtMssv.getText());
+                    sv.setHo(txtHo.getText());
+                    sv.setTen(txtTen.getText());
+                    sv.setNgaysinh(txtNgaySinh.getValue().format(formatter));
+                    sv.setQuequan(txtQueQuan.getText());
+                    sinhvienService.updateSV(sv);
+                    this.tbSinhVien.getItems().clear();
+                }
+                alert.setContentText("Cap nhat thanh cong!!!");
+                loadSinhVien();
             }
-            loadSinhVien();
         }
         else{
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Năm sinh không hợp lệ!!!");
-            alert.show();
         }
+        alert.show();
     }
     public void them() throws SQLException, ParseException{
        Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -247,9 +250,10 @@ public class QuanLySVController implements Initializable {
                 }
                 else{
                     sinhvienService.themSV(b,c,d,e);
+                    alert.setContentText("Thêm thành công!!!");
+                    loadSinhVien();
                 }
-                alert.setContentText("Thêm thành công!!!");
-                loadSinhVien();
+                
             }
         }
         else{

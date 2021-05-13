@@ -13,8 +13,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-/**
- *
+/** OK?
+ * hoi bat teamview m thuyet trinh luon di
  * @author jacky
  */
 

@@ -72,7 +72,7 @@ public class Login implements Initializable {
             preparedStatement.setString(2, password);
             resultSet = preparedStatement.executeQuery();
             if(!resultSet.next()){
-                infoBox("Please enter  correct Email and Password", null, "Failed");
+                infoBox("Sai tài khoản hoặc mật khẩu ", null, "Failed");
             }else{
                 this.loginid = resultSet.getInt("id_account");
                 Node node = (Node)event.getSource();

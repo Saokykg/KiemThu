@@ -107,6 +107,11 @@ public class DangKyController implements Initializable {
         
         try {
             this.tbLop.setItems(FXCollections.observableArrayList(lophocService.getLH(idhk)));
+            if (this.tbLop.getItems().size() <= 0){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("HK nay ko co mon!!!");
+                alert.show();
+            }
         } catch (SQLException ex) {
             Logger.getLogger(DangKyController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
@@ -165,9 +170,11 @@ public class DangKyController implements Initializable {
             if (tbDangKy.getItems().size() != 0) {
                 boolean kt = true;
                 List<tbLopHoc> lh = tbDangKy.getItems();
+                boolean kt2= true;
                 for (int i = 0; i < lh.size(); i++) {
                     if (checkSLdk(lh.get(i).getId())) {
-                        alert.setContentText("Mon hoc " + lh.get(i).getMon() + " da vuot qua so luong dk !!!!");
+                        alert.setContentText("Mon hoc " + lh.get(i).getMon() + " đã vượt quá số lương đăng ký!!!!");
+                        kt2=false;
                     }
                 }
                 for (int i = 0; i < lh.size() - 1; i++) {
@@ -175,7 +182,7 @@ public class DangKyController implements Initializable {
                     for (int j = i + 1; j < lh.size(); j++) {
                         tbLopHoc lopj = lh.get(j);
                         if (Utils.todatetime(lopi.getBd()).before(Utils.todatetime(lopj.getKt())) && lopi.getThu().equals(lopj.getThu()) && lopi.getCa() == lopj.getCa()) {
-                            alert.setContentText("Dk mon bi trung thoi khoa bieu!!!\n(" + lopi.getMon() + ", " + lopj.getMon() + ")");
+                            alert.setContentText("Đăng ký bị trung thời khóa biểu!!!\n(" + lopi.getMon() + ", " + lopj.getMon() + ")");
                             kt = false;
                             break;
                         }
@@ -184,17 +191,17 @@ public class DangKyController implements Initializable {
                         break;
                     }
                 }
-                if (kt) {
+                if (kt && kt2) {
                     List<tbLopHoc> dk = this.tbDangKy.getItems();
                     diemService.dangky(dk, Login.loginid);
-                    alert.setContentText("Dk thanh cong!!!");
+                    alert.setContentText("Đăng ký thanh công!!!");
                     reset();
                 }
             } else {
                 alert.setContentText("Đăng ký thất bại, vui lòng chọn môn cần đăng ký!!!");
             }
         } catch (Exception ex){
-            alert.setContentText("Unknow error!!!");
+            alert.setContentText("Có môn học đã đăng ký !!!");
         } 
         alert.show();
     }
